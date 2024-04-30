@@ -181,17 +181,18 @@
     }
     {
         key = "<leader>gb";
-        action = '':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | color_git_blame | less +<C-R>=max([0, line(\".\") - winline()]) <CR><CR><CR>'';
+        action = '':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | color_git_blame | less +<C-R>=max([0, line('.') - winline()]) <CR><CR><CR>'';
         mode = ["n"];
     }
     {
         key = "<leader>gb";
-        action = '':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | sed -n <C-R>=line("\"<") <CR>,<C-R>=line("\">") <CR>p | color_git_blame | less <CR><CR>'';
+        action = '':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p | color_git_blame | less <CR><CR>'';
         mode = ["v"];
     }
     {
         key = "<leader>gl";
-        action = '':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | sed -n <C-R>=line(".") <CR>p | awk \"{print $1}\" | tr -d \"^\" | xargs git show <CR><CR>'';
+        action = '':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | sed -n <C-R>=line(".") <CR>p | awk '{print $1}' | tr -d '^' | xargs git show <CR><CR>'';
+        mode = ["n"];
     }
   ];
 
