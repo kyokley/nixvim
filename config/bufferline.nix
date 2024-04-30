@@ -5,5 +5,6 @@
     numbers = "buffer_id";
     separatorStyle = "slant";
     showBufferCloseIcons = false;
+    enforceRegularTabs = true;
   };
 }
