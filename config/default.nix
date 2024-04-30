@@ -196,6 +196,20 @@
     }
   ];
 
+  autoGroups = {
+    general_setup.clear = true;
+    terminal_setup.clear = true;
+  };
+
+  autoCmd = [
+    {
+      event = ["InsertEnter"];
+      pattern = "*";
+      command = ''if &buftype != 'nofile' | highlight LineNr ctermbg=darkred   guibg=darkred | endif'';
+      group = "general_setup";
+    }
+  ];
+
   plugins = {
     lualine.enable = true;
     telescope = {
@@ -231,8 +245,6 @@
             function(fallback)
               if cmp.visible() then
                 cmp.select_next_item()
-              elseif check_backspace() then
-                fallback()
               else
                 fallback()
               end
@@ -244,8 +256,6 @@
             function(fallback)
               if cmp.visible() then
                 cmp.select_prev_item()
-              elseif check_backspace() then
-                fallback()
               else
                 fallback()
               end
