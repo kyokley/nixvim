@@ -208,6 +208,36 @@
       command = ''if &buftype != 'nofile' | highlight LineNr ctermbg=darkred   guibg=darkred | endif'';
       group = "general_setup";
     }
+    {
+      event = ["InsertEnter"];
+      pattern = "*";
+      command = ''if &buftype != 'nofile' && &buftype != 'prompt' | highlight CursorLine ctermbg=darkred guibg=darkred | else | highlight CursorLine ctermbg=NONE guibg=NONE | endif'';
+      group = "general_setup";
+    }
+    {
+      event = ["InsertEnter"];
+      pattern = "*";
+      command = ''if &buftype != 'nofile' | highlight statusline ctermbg=darkred   guibg=#690000 | endif'';
+      group = "general_setup";
+    }
+    {
+      event = ["InsertLeave"];
+      pattern = "*";
+      command = ''if &buftype != 'nofile' | highlight LineNr ctermbg=NONE guibg=NONE | endif'';
+      group = "general_setup";
+    }
+    {
+      event = ["InsertLeave"];
+      pattern = "*";
+      command = ''if &buftype != 'nofile' && &buftype != 'prompt' | highlight CursorLine ctermbg=18 guibg=darkblue | endif'';
+      group = "general_setup";
+    }
+    {
+      event = ["InsertLeave"];
+      pattern = "*";
+      command = ''if &buftype != 'nofile' | highlight statusline ctermbg=darkblue guibg=#203780 | endif'';
+      group = "general_setup";
+    }
   ];
 
   plugins = {
