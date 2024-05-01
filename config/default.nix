@@ -4,6 +4,9 @@
     ./bufferline.nix
   ];
 
+  viAlias = true;
+  vimAlias = true;
+
   colorschemes.catppuccin = {
     enable = true;
     settings.flavour = "auto";
