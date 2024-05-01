@@ -4,9 +4,9 @@
     ./bufferline.nix
   ];
 
-  colorschemes.onedark = {
+  colorschemes.catppuccin = {
     enable = true;
-    settings = { style = "warmer"; };
+    settings.flavour = "auto";
   };
 
   opts = {
@@ -60,12 +60,12 @@
     # NonText.ctermbg = null;
 
     CursorLine = {
-        cterm = null;
-        # ctermbg = "18";
+        # cterm = null;
+        ctermbg = "blue";
         ctermfg = "white";
     };
 
-    ColorColumn.ctermbg = "black";
+    # ColorColumn.ctermbg = "black";
     TabLineFill = {
         cterm = null;
         ctermbg = null;
@@ -88,17 +88,17 @@
         cterm = null;
         ctermbg = "black";
     };
-    visual = {
-        cterm = null;
-        ctermbg = "white";
-        ctermfg = "black";
-    };
+    # visual = {
+    #     cterm = null;
+    #     ctermbg = "white";
+    #     ctermfg = "black";
+    # };
 
-    statusline ={
-        cterm = null;
-        # ctermbg = "4";
-        ctermfg = "white";
-    };
+    # statusline ={
+    #     cterm = null;
+    #     # ctermbg = "4";
+    #     ctermfg = "white";
+    # };
 
   };
 
@@ -244,6 +244,16 @@
         action = '':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | sed -n <C-R>=line(".") <CR>p | awk '{print $1}' | tr -d '^' | xargs git show <CR><CR>'';
         mode = ["n"];
     }
+    {
+        key = "<F3>";
+        action = ":NvimTreeToggle<CR>";
+        mode = ["n"];
+    }
+    {
+        key = "<F5>";
+        action = ":UndotreeToggle<CR>";
+        mode = ["n"];
+    }
   ];
 
   autoGroups = {
@@ -255,31 +265,31 @@
     {
       event = ["InsertEnter"];
       pattern = "*";
-      command = ''if &buftype != 'nofile' | highlight LineNr ctermbg=darkred   guibg=darkred | endif'';
+      command = ''if &buftype != 'nofile' | highlight LineNr ctermbg=darkred | endif'';
       group = "general_setup";
     }
     {
       event = ["InsertEnter"];
       pattern = "*";
-      command = ''if &buftype != 'nofile' && &buftype != 'prompt' | highlight CursorLine ctermbg=darkred guibg=darkred | else | highlight CursorLine ctermbg=NONE guibg=NONE | endif'';
+      command = ''if &buftype != 'nofile' && &buftype != 'prompt' | highlight CursorLine ctermbg=darkred | endif'';
       group = "general_setup";
     }
     {
-      event = ["InsertEnter"];
+        event = ["InsertEnter"];
+        pattern = "*";
+        command = ''if &buftype != 'nofile' | highlight statusline ctermbg=darkred | endif'';
+        group = "general_setup";
+    }
+    {
+      event = ["InsertLeave"];
       pattern = "*";
-      command = ''if &buftype != 'nofile' | highlight statusline ctermbg=darkred   guibg=#690000 | endif'';
+      command = ''if &buftype != 'nofile' | highlight LineNr ctermbg=NONE | endif'';
       group = "general_setup";
     }
     {
       event = ["InsertLeave"];
       pattern = "*";
-      command = ''if &buftype != 'nofile' | highlight LineNr ctermbg=NONE guibg=NONE | endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["InsertLeave"];
-      pattern = "*";
-      command = ''if &buftype != 'nofile' && &buftype != 'prompt' | highlight CursorLine ctermbg=18 guibg=darkblue | endif'';
+      command = ''if &buftype != 'nofile' && &buftype != 'prompt' | highlight CursorLine ctermbg=darkblue | endif'';
       group = "general_setup";
     }
     {
@@ -288,76 +298,95 @@
       command = ''if &buftype != 'nofile' | highlight statusline ctermbg=darkblue guibg=#203780 | endif'';
       group = "general_setup";
     }
-    {
-      event = ["BufReadPost"];
-      pattern = "*";
-      command = ''if line(\"'\\\"\") > 0|if line(\"'\\\"\") <= line(\"$\")|exe(\"norm '\\\"\")|else|exe \"norm $\"|endif|endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["VimEnter"];
-      pattern = "*";
-      command = ''if &filetype != 'gitcommit' | highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow | endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["VimEnter"];
-      pattern = "*";
-      command = ''if &filetype != 'gitcommit' | match ExtraWhitespace /\\s\\+$\\|\\t/ | endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["BufEnter"];
-      pattern = "*";
-      command = ''let &titlestring = "nvim " . expand("%:p")'';
-      group = "general_setup";
-    }
-    {
-      event = ["FocusGained" "VimEnter" "WinEnter" "BufWinEnter"];
-      pattern = "*";
-      command = ''setlocal cursorline'';
-      group = "general_setup";
-    }
-    {
-      event = ["FocusLost" "WinLeave"];
-      pattern = "*";
-      command = ''setlocal nocursorline'';
-      group = "general_setup";
-    }
-    {
-      event = ["FocusGained"];
-      pattern = "*";
-      command = ''checktime'';
-      group = "general_setup";
-    }
-    {
-      event = ["TermClose"];
-      pattern = "<buffer>";
-      command = ''if &buftype == 'terminal' | bdelete! | endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["TermOpen"];
-      pattern = "*";
-      command = ''setlocal nonumber norelativenumber bufhidden=hide'';
-      group = "terminal_setup";
-    }
-    {
-      event = ["TermOpen" "BufWinEnter" "WinEnter"];
-      pattern = "term://*";
-      command = ''startinsert'';
-      group = "terminal_setup";
-    }
-    {
-      event = ["BufLeave"];
-      pattern = "term://*";
-      command = ''stopinsert'';
-      group = "terminal_setup";
-    }
+    # {
+    #   event = ["BufReadPost"];
+    #   pattern = "*";
+    #   command = ''if line(\"'\\\"\") > 0|if line(\"'\\\"\") <= line(\"$\")|exe(\"norm '\\\"\")|else|exe \"norm $\"|endif|endif'';
+    #   group = "general_setup";
+    # }
+    # {
+    #   event = ["VimEnter"];
+    #   pattern = "*";
+    #   command = ''if &filetype != 'gitcommit' | highlight ExtraWhitespace ctermbg=darkred ctermfg=yellow | endif'';
+    #   group = "general_setup";
+    # }
+    # {
+    #   event = ["VimEnter"];
+    #   pattern = "*";
+    #   command = ''if &filetype != 'gitcommit' | match ExtraWhitespace /\\s\\+$\\|\\t/ | endif'';
+    #   group = "general_setup";
+    # }
+    # {
+    #   event = ["BufEnter"];
+    #   pattern = "*";
+    #   command = ''let &titlestring = "nvim " . expand("%:p")'';
+    #   group = "general_setup";
+    # }
+    # {
+    #   event = ["FocusGained" "VimEnter" "WinEnter" "BufWinEnter"];
+    #   pattern = "*";
+    #   command = ''setlocal cursorline'';
+    #   group = "general_setup";
+    # }
+    # {
+    #   event = ["FocusLost" "WinLeave"];
+    #   pattern = "*";
+    #   command = ''setlocal nocursorline'';
+    #   group = "general_setup";
+    # }
+    # {
+    #   event = ["FocusGained"];
+    #   pattern = "*";
+    #   command = ''checktime'';
+    #   group = "general_setup";
+    # }
+    # {
+    #   event = ["TermClose"];
+    #   pattern = "<buffer>";
+    #   command = ''if &buftype == 'terminal' | bdelete! | endif'';
+    #   group = "general_setup";
+    # }
+    # {
+    #   event = ["TermOpen"];
+    #   pattern = "*";
+    #   command = ''setlocal nonumber norelativenumber bufhidden=hide'';
+    #   group = "terminal_setup";
+    # }
+    # {
+    #   event = ["TermOpen" "BufWinEnter" "WinEnter"];
+    #   pattern = "term://*";
+    #   command = ''startinsert'';
+    #   group = "terminal_setup";
+    # }
+    # {
+    #   event = ["BufLeave"];
+    #   pattern = "term://*";
+    #   command = ''stopinsert'';
+    #   group = "terminal_setup";
+    # }
   ];
 
   plugins = {
     lualine.enable = true;
+    undotree.enable = true;
+    marks.enable = true;
+    indent-o-matic.enable = true;
+
+    nvim-tree = {
+        enable = true;
+        # onAttach = {
+        #     __raw = ''
+        #         function(bufnr)
+        #             local api = require("nvim-tree.api")
+        #             vim.keymap.set(
+        #                 "n",
+        #                 "<F3>",
+        #                 function()
+        #                     local node = api.tree.get_node_under_cursor()
+        #                     print(node.absolute_path)
+        #                 end, { buffer = bufnr, noremap = true, silent = true, nowait = true, desc = "print the node's absolute path" }) end
+        #     '';};
+    };
     telescope = {
         enable = true;
         keymaps = {
