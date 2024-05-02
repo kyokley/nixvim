@@ -414,7 +414,7 @@
       enable = true;
       servers = {
         lua-ls.enable = true;
-        ruff-lsp.enable = true;
+        pylsp.enable = true;
       };
     };
     cmp = {
