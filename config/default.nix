@@ -406,6 +406,7 @@
             "<C-p>" = "git_files";
             "<leader>8" = "grep_string";
             "<leader>a" = "live_grep";
+            "<F4>" = "lsp_document_symbols";
         };
     };
     treesitter.enable = true;
@@ -414,7 +415,9 @@
       enable = true;
       servers = {
         lua-ls.enable = true;
+        ruff-lsp.enable = true;
         pylsp.enable = true;
+        nil_ls.enable = true;
       };
     };
     cmp = {
