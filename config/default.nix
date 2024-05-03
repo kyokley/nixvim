@@ -1,6 +1,7 @@
-{self, ...}: {
+{...}: {
   # Import all your configuration modules here
   imports = [
+    # ./barbar.nix
     ./bufferline.nix
   ];
 
@@ -99,6 +100,27 @@
         bg = null;
     };
 
+    BufferDefaultCurrent = {
+        cterm = null;
+        ctermbg = "darkblue";
+        bg = "darkblue";
+        fg = "white";
+    };
+
+    BufferDefaultCurrentIndex = {
+        cterm = null;
+        ctermbg = "darkblue";
+        bg = "darkblue";
+        fg = "white";
+    };
+
+    BufferDefaultCurrentSign = {
+        cterm = null;
+        ctermbg = "black";
+        bg = "black";
+        fg = "darkblue";
+    };
+
     search = {
         cterm = null;
         ctermbg = "lightblue";
@@ -116,15 +138,12 @@
         cterm = null;
         ctermbg = "darkgrey";
         bg = "darkgrey";
-        # ctermfg = "black";
     };
 
-     statusline ={
-         cterm = null;
-         # ctermbg = "4";
-         ctermfg = "white";
-     };
-
+    statusline = {
+      cterm = null;
+      ctermfg = "white";
+    };
   };
 
   match = {
