@@ -1,0 +1,44 @@
+{
+  opts = {
+      "number" = true;
+      "relativenumber" = true;
+      "tabstop" = 8;
+      "softtabstop" = 4;
+      "shiftwidth" = 4;
+      "expandtab" = true;
+      "autoindent" = true;
+      "hidden" = true;
+      "autowrite" = false;
+      "smarttab" = true;
+      "showmatch" = true;
+      "scrolloff" = 5;
+      "visualbell" = true;
+      "autochdir" = true;
+# "wildignore" = {'*.swp', '*.bak', '*.pyc', '*.class', '*.o', '*.obj', '*.git'};
+# "wildmode" = "{'longest:full', 'full'}";
+      "wildmenu" = true;
+      "wrapscan" = false;
+      "textwidth" = 0;
+      "mouse" = "";
+      "autoread" = true;
+      "shiftround" = true;
+      "splitright" = true;
+      "splitbelow" = true;
+      "listchars" = "trail:_";
+      "list" = true;
+      "cursorline" = true;
+      "incsearch" = true;
+      "hlsearch" = true;
+      "timeout" = true;
+      "timeoutlen" = 400;
+      "ttimeoutlen" = 100;
+      "undofile" = true;
+      "undolevels" = 1000;
+      "undoreload" = 1000;
+      "backup" = false;
+# "diffopt" = "{'internal', 'algorithm:patience'}";
+      "inccommand" = "split";
+      "guicursor" = "";
+      "termguicolors" = true;
+  };
+}
