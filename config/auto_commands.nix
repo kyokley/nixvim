@@ -90,6 +90,16 @@
       group = "general_setup";
     }
     {
+      event = ["DiagnosticChanged"];
+      pattern = "*";
+      callback = { __raw = ''
+      function(args)
+        vim.diagnostic.setloclist({open = false})
+      end
+      ''; };
+      group = "general_setup";
+    }
+    {
       event = ["TermOpen"];
       pattern = "*";
       command = ''setlocal nonumber norelativenumber bufhidden=hide'';

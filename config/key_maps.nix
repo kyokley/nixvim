@@ -143,6 +143,11 @@
         mode = ["n"];
     }
     {
+        key = "<F4>";
+        action = ":Vista!!<CR>";
+        mode = ["n"];
+    }
+    {
         key = "<F5>";
         action = ":UndotreeToggle<CR>";
         mode = ["n"];

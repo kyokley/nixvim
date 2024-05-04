@@ -27,13 +27,14 @@ in
         nvim-tree = {
             enable = true;
         };
+
         telescope = {
             enable = true;
             keymaps = {
                 "<C-p>" = "git_files";
                 "<leader>8" = "grep_string";
                 "<leader>a" = "live_grep";
-                "<F4>" = "lsp_document_symbols";
+                # "<F4>" = "lsp_document_symbols";
             };
         };
         treesitter.enable = true;
@@ -42,7 +43,7 @@ in
             enable = true;
             servers = {
                 lua-ls.enable = true;
-                ruff-lsp.enable = true;
+                ruff.enable = true;
                 pylsp.enable = true;
                 nil_ls.enable = true;
             };
@@ -86,6 +87,7 @@ in
 
     extraPlugins = with pkgs.vimPlugins; [
         (fromGitHub "32929480b1753a5c2a99435e891da9be1e61e0b9" "main" "willothy/nvim-cokeline")
+        (fromGitHub "04fa99afe865b16324af94fd8a8391121117d8f7" "master" "liuchengxu/vista.vim")
     ];
 
     extraConfigLua = ''
@@ -213,5 +215,16 @@ in
                     },
             })
             -- }}}
+
+            -- {{{ Vista
+            vim.g.vista_highlight_whole_line = 1
+            vim.g.vista_blank = {0, 0}
+            vim.g.vista_top_level_blink = {0, 0}
+            vim.g.vista_echo_cursor = 1
+            vim.g.vista_echo_cursor_strategy = 'floating_win'
+            vim.g.vista_cursor_delay = 1000
+            vim.g.vista_fzf_preview = {}
+            -- }}}
+
         '';
 }

@@ -8,6 +8,7 @@
             ./auto_commands.nix
             ./plugins.nix
             ./key_maps.nix
+            ./functions.nix
     ];
 
     viAlias = true;
