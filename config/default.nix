@@ -415,6 +415,13 @@
     undotree.enable = true;
     marks.enable = true;
     indent-o-matic.enable = true;
+    rainbow-delimiters.enable = true;
+    illuminate.enable = true;
+    alpha = {
+        enable = true;
+        theme = "startify";
+    };
+    gitgutter.enable = true;
 
     nvim-tree = {
         enable = true;
