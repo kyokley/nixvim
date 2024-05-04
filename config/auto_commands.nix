@@ -90,6 +90,16 @@
       group = "general_setup";
     }
     {
+        event = ["BufWritePre"];
+        pattern = "*";
+        command = "call RaiseExceptionForUnresolvedErrors()";
+    }
+    {
+        event = ["FileType"];
+        pattern = ["vista" "vista_kind"];
+        command = "nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>";
+    }
+    {
       event = ["DiagnosticChanged"];
       pattern = "*";
       callback = { __raw = ''

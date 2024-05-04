@@ -11,6 +11,10 @@ fromGitHub = rev: ref: repo: pkgs.vimUtils.buildVimPlugin {
 };
 in
 {
+    extraPython3Packages = p: with p; [
+        bandit
+    ];
+
     plugins = {
         lualine.enable = true;
         undotree.enable = true;

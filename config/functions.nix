@@ -45,8 +45,8 @@
                 silent $,$delete
 
                 try
-                    let pyflakes_cmd = '%!' . g:python3_dir . 'ruff --stdin-filename ' . s:file_name . ' -'
-                    let bandit_cmd = '%!' . g:python3_dir . 'bandit -ll -s B322,B101 -'
+                    let pyflakes_cmd = '%!ruff --stdin-filename ' . s:file_name . ' -'
+                    let bandit_cmd = '%!bandit -ll -s B322,B101 -'
 
                     silent execute pyflakes_cmd
 
@@ -74,15 +74,15 @@
                                 \ 'keyword argument repeated',
                                 \ 'problem decoding source',
                                 \ 'EOF in multi-line statement',
+                                \ 'simple statements must be separated',
                                 \ 'unexpected EOF']
 
                     for error_str in error_strs
                         call s:FindError(s:file_name, error_str, 'Syntax error!', 1)
                     endfor
 
-                catch
+                finally
                     let &lazyredraw = current_lazyredraw
-                    throw v:exception
                 endtry
 
                 bdelete!
@@ -111,5 +111,43 @@
             endif
         endfunction
         " }}}
-        '';
+
+        " Python Breakpoints {{{
+        python3 << EOF
+        import vim
+        def SetBreakpoint():
+            import re
+            nLine = int(vim.eval('line(".")'))
+
+            strLine = vim.current.line
+            strWhite = re.search('^(\s*)', strLine).group(1)
+
+            vim.current.buffer.append(
+            "%(space)simport pdb; pdb.set_trace()  # %(mark)s Breakpoint %(mark)s" %
+                {'space':strWhite, 'mark': '#' * 30}, nLine - 1)
+
+
+        def RemoveBreakpoints():
+            nCurrentLine = int(vim.eval('line(".")'))
+
+            nLines = []
+            nLine = 1
+            for strLine in vim.current.buffer:
+                if strLine == "import pdb" or strLine.lstrip()[:27] == "import pdb; pdb.set_trace()":
+                    nLines.append( nLine)
+                nLine += 1
+
+            nLines.reverse()
+
+            for nLine in nLines:
+                vim.command("normal %dG" % nLine)
+                vim.command("normal dd")
+                if nLine < nCurrentLine:
+                    nCurrentLine -= 1
+
+            vim.command("normal %dG" % nCurrentLine)
+
+        EOF
+        " }}}
+    '';
 }

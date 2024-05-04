@@ -152,5 +152,20 @@
         action = ":UndotreeToggle<CR>";
         mode = ["n"];
     }
+    {
+        key = "<F12>";
+        action = ":py3 SetBreakpoint()<CR>";
+        mode = ["n"];
+    }
+    {
+        key = "<S-F12>";
+        action = ":py3 RemoveBreakpoints()<CR>";
+        mode = ["n"];
+    }
+    {
+        key = "<F24>";
+        action = ":py3 RemoveBreakpoints()<CR>";
+        mode = ["n"];
+    }
   ];
 }
