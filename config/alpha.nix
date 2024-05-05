@@ -187,5 +187,10 @@
         }
         local keys = vim.tbl_keys(banners)
         startify.section.header.val = banners[keys[math.random(1, #keys + 1)]]
+
+        math.randomseed(os.time())
+        local fg_color = tostring(math.random(0, 12))
+        local hi_setter = "hi AlphaHeader ctermfg=" .. fg_color .. "guifg=" .. fg_color
+        vim.cmd(hi_setter)
     '';
 }
