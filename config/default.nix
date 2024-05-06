@@ -1,8 +1,8 @@
 {...}:
 {
-# Import all your configuration modules here
     imports = [
         ./bufferline.nix
+            ./lsp.nix
             ./global_options.nix
             ./highlights.nix
             ./auto_commands.nix
