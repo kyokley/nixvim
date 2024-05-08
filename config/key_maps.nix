@@ -167,5 +167,10 @@
         action = ":py3 RemoveBreakpoints()<CR>";
         mode = ["n"];
     }
+    {
+        key = "<leader>sp";
+        action = ":%!docker run --rm -i kyokley/sqlparse<CR>";
+        mode = ["n" "x"];
+    }
   ];
 }
