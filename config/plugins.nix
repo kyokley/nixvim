@@ -159,7 +159,7 @@ in
                     diagnostic_errors = {
                         text = function(buffer)
                             return
-                            (buffer.diagnostics.errors ~= 0 and '  ' .. buffer.diagnostics.errors)
+                            (buffer.diagnostics.errors ~= 0 and ' ⓧ ' .. buffer.diagnostics.errors)
                             or ""
                             end,
                         fg = function(buffer)
