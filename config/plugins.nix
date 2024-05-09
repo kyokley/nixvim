@@ -26,7 +26,19 @@ in
             enable = true;
             theme = "startify";
         };
-        gitgutter.enable = true;
+
+        gitsigns = {
+            enable = true;
+            settings = {
+                current_line_blame = true;
+                linehl = false;
+                numhl = false;
+                signs = {
+                    add.text = "+";
+                    change.text = "~";
+                };
+            };
+        };
 
         nvim-tree = {
             enable = true;
