@@ -48,15 +48,9 @@
       group = "general_setup";
     }
     {
-      event = ["VimEnter"];
+      event = ["BufEnter"];
       pattern = "*";
-      command = ''if &filetype != 'gitcommit' | highlight ExtraWhitespace ctermbg=darkred ctermfg=yellow guibg=darkred guifg=yellow | endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["VimEnter"];
-      pattern = "*";
-      command = ''if &filetype != 'gitcommit' | match ExtraWhitespace /\s\+$\|\t/ | match ExtraWhitespace /\s\+$\|\t/ | match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$' | endif'';
+      command = "match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'";
       group = "general_setup";
     }
     {
@@ -139,6 +133,15 @@
         event = ["FileType"];
         pattern = ["gitcommit"];
         command = "cnoreabbrev <expr> q getcmdtype() == ':' && getcmdline()[0] == 'q' ? 'cq' : 'q'";
+    }
+
+    # I wanted to apply the following during the BufReadPost event but that
+    # didn't seem to work. For now fall back to CursorHold.
+    {
+      event = ["CursorHold"];
+      pattern = "*";
+      command = ''match ExtraWhitespace /\s\+$\|\t/'';
+      group = "general_setup";
     }
 
   ];

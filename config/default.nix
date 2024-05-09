@@ -5,10 +5,10 @@
             ./lsp.nix
             ./global_options.nix
             ./highlights.nix
-            ./auto_commands.nix
             ./plugins.nix
             ./key_maps.nix
             ./functions.nix
+            ./auto_commands.nix
     ];
 
     viAlias = true;

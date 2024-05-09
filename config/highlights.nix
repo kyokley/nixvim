@@ -9,8 +9,6 @@
         ctermbg = null;
         bg = null;
     };
-    # MatchParen.ctermbg = "4";
-
     Normal = {
         ctermbg = "black";
         bg = "black";
@@ -91,6 +89,39 @@
     statusline = {
       cterm = null;
       ctermfg = "white";
+    };
+
+    DiffAdd = {
+      bold = true;
+      ctermfg = "green";
+      fg = "green";
+    };
+
+    DiffDelete = {
+      bold = true;
+      ctermfg = "red";
+      fg = "red";
+    };
+
+    DiffChange = {
+      bold = true;
+      ctermfg = "yellow";
+      fg = "yellow";
+    };
+
+    DiffText = {
+      bold = true;
+      ctermbg = "red";
+      ctermfg = "yellow";
+      bg = "red";
+      fg = "yellow";
+    };
+
+    ExtraWhitespace = {
+      ctermbg = "darkred";
+      ctermfg = "yellow";
+      bg = "darkred";
+      fg = "yellow";
     };
   };
 
