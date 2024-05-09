@@ -44,7 +44,7 @@
     {
       event = ["BufReadPost"];
       pattern = "*";
-      command = ''if line("'\\\"") > 0|if line("'\\\"") <= line("$")|exe("norm '\\\"")|else|exe "norm $"|endif|endif'';
+      command = ''if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif'';
       group = "general_setup";
     }
     {
@@ -56,7 +56,7 @@
     {
       event = ["VimEnter"];
       pattern = "*";
-      command = ''if &filetype != 'gitcommit' | match ExtraWhitespace /\\s\\+$\\|\\t/ | endif'';
+      command = ''if &filetype != 'gitcommit' | match ExtraWhitespace /\s\+$\|\t/ | match ExtraWhitespace /\s\+$\|\t/ | match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$' | endif'';
       group = "general_setup";
     }
     {
@@ -100,6 +100,11 @@
         command = "nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>";
     }
     {
+      event = ["BufEnter"];
+      pattern = "*";
+      command = "normal zx zR";
+    }
+    {
       event = ["DiagnosticChanged"];
       pattern = "*";
       callback = { __raw = ''
@@ -127,5 +132,14 @@
       command = ''stopinsert'';
       group = "terminal_setup";
     }
+    # When amending git commits :q can accidentally succeed if a message
+    # already exists. Instead, replace :q with :cq to force vim to exit with
+    # an error code.
+    {
+        event = ["FileType"];
+        pattern = ["gitcommit"];
+        command = "cnoreabbrev <expr> q getcmdtype() == ':' && getcmdline()[0] == 'q' ? 'cq' : 'q'";
+    }
+
   ];
 }

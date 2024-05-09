@@ -40,5 +40,7 @@
       "inccommand" = "split";
       "guicursor" = "";
       "termguicolors" = true;
+      "foldmethod" = "expr";
+      "foldexpr" = "nvim_treesitter#foldexpr()";
   };
 }

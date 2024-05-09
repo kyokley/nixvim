@@ -83,6 +83,7 @@ in
         (fromGitHub "32929480b1753a5c2a99435e891da9be1e61e0b9" "main" "willothy/nvim-cokeline")
         (fromGitHub "04fa99afe865b16324af94fd8a8391121117d8f7" "master" "liuchengxu/vista.vim")
         (fromGitHub "d6c1e9790bcb8df27c483a37167459bbebe0112e" "master" "tommcdo/vim-exchange")
+        (fromGitHub "bcda25a513abc2d4744bc1f8c910eaae305a5242" "master" "junegunn/fzf")
     ];
 
     extraConfigLua = ''

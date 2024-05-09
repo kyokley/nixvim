@@ -172,5 +172,16 @@
         action = ":%!docker run --rm -i kyokley/sqlparse<CR>";
         mode = ["n" "x"];
     }
+
+    {
+        key = "ii";
+        action = ":<c-u>call InIndentation()<cr>";
+        mode = ["o" "x"];
+    }
+    {
+        key = "ai";
+        action = ":<c-u>call AroundIndentation()<cr>";
+        mode = ["o" "x"];
+    }
   ];
 }
