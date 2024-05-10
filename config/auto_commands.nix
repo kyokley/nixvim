@@ -143,6 +143,5 @@
       command = ''match ExtraWhitespace /\s\+$\|\t/'';
       group = "general_setup";
     }
-
   ];
 }

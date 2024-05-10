@@ -42,6 +42,7 @@ in
 
         nvim-tree = {
             enable = true;
+            autoClose = true;
         };
 
         telescope = {
@@ -96,6 +97,7 @@ in
         (fromGitHub "04fa99afe865b16324af94fd8a8391121117d8f7" "master" "liuchengxu/vista.vim")
         (fromGitHub "d6c1e9790bcb8df27c483a37167459bbebe0112e" "master" "tommcdo/vim-exchange")
         (fromGitHub "bcda25a513abc2d4744bc1f8c910eaae305a5242" "master" "junegunn/fzf")
+        (fromGitHub "2ca2a8657672e121a5afae87b9d152eeb3726519" "master" "jlcrochet/vim-razor")
     ];
 
     extraConfigLua = ''
