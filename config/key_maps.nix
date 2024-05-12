@@ -183,5 +183,20 @@
         action = ":<c-u>call AroundIndentation()<cr>";
         mode = ["o" "x"];
     }
+    {
+        key = ",#";
+        action = ":call CommentLineToEnd('# ')<CR>+";
+        mode = ["n" "x"];
+    }
+    {
+        key = ",*";
+        action = ":call CommentLinePincer('/* ', ' */')<CR>+";
+        mode = ["n" "x"];
+    }
+    {
+        key = ",-";
+        action = ":call CommentLinePincer('<!-- ', ' -->')<CR>+";
+        mode = ["n" "x"];
+    }
   ];
 }
