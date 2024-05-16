@@ -11,7 +11,7 @@
                 ruff.enable = true;
                 pylsp.enable = true;
                 nil_ls.enable = true;
-                omnisharp.enable = true;
+                csharp-ls.enable = true;
             };
         };
     };
