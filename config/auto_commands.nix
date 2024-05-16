@@ -134,6 +134,16 @@
         pattern = ["gitcommit"];
         command = "cnoreabbrev <expr> q getcmdtype() == ':' && getcmdline()[0] == 'q' ? 'cq' : 'q'";
     }
+    {
+        event = ["FileType"];
+        pattern = ["git" "gitcommit"];
+        command = "setlocal nospell";
+    }
+    {
+        event = ["FileType"];
+        pattern = ["git" "gitcommit"];
+        command = "setlocal nolist";
+    }
 
     # I wanted to apply the following during the BufReadPost event but that
     # didn't seem to work. For now fall back to CursorHold.
