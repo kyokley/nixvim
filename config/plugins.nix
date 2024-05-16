@@ -17,7 +17,30 @@ in
 
     plugins = {
         lualine.enable = true;
-        undotree.enable = true;
+        undotree = {
+            enable = true;
+            settings = {
+                DiffAutoOpen = true;
+                WindowLayout = 2;
+                CursorLine = true;
+                DiffCommand = "diff";
+                DiffpanelHeight = 10;
+                HelpLine = true;
+                HighlightChangedText = true;
+                HighlightChangedWithSign = true;
+                HighlightSyntaxAdd = "DiffAdd";
+                HighlightSyntaxChange = "DiffChange";
+                HighlightSyntaxDel = "DiffDelete";
+                RelativeTimestamp = true;
+                SetFocusWhenToggle = true;
+                ShortIndicators = false;
+                SplitWidth = 40;
+                TreeNodeShape = "*";
+                TreeReturnShape = "\\";
+                TreeSplitShape = "/";
+                TreeVertShape = "|";
+            };
+        };
         marks.enable = true;
         indent-o-matic.enable = true;
         rainbow-delimiters.enable = true;
