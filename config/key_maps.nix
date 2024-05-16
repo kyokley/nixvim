@@ -149,7 +149,7 @@
     }
     {
         key = "<F5>";
-        action = ":UndotreeToggle<CR>";
+        action = ":MundoToggle<CR>";
         mode = ["n"];
     }
     {

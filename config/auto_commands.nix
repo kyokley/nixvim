@@ -150,7 +150,7 @@
     {
       event = ["CursorHold"];
       pattern = "*";
-      command = ''match ExtraWhitespace /\s\+$\|\t/'';
+      command = ''if &filetype != 'Mundo' | match ExtraWhitespace /\s\+$\|\t/ | endif'';
       group = "general_setup";
     }
   ];

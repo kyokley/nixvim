@@ -17,30 +17,6 @@ in
 
     plugins = {
         lualine.enable = true;
-        undotree = {
-            enable = true;
-            settings = {
-                DiffAutoOpen = true;
-                WindowLayout = 2;
-                CursorLine = true;
-                DiffCommand = "diff";
-                DiffpanelHeight = 10;
-                HelpLine = true;
-                HighlightChangedText = true;
-                HighlightChangedWithSign = true;
-                HighlightSyntaxAdd = "DiffAdd";
-                HighlightSyntaxChange = "DiffChange";
-                HighlightSyntaxDel = "DiffDelete";
-                RelativeTimestamp = true;
-                SetFocusWhenToggle = true;
-                ShortIndicators = false;
-                SplitWidth = 40;
-                TreeNodeShape = "*";
-                TreeReturnShape = "\\";
-                TreeSplitShape = "/";
-                TreeVertShape = "|";
-            };
-        };
         marks.enable = true;
         indent-o-matic.enable = true;
         rainbow-delimiters.enable = true;
@@ -122,6 +98,7 @@ in
         (fromGitHub "bcda25a513abc2d4744bc1f8c910eaae305a5242" "master" "junegunn/fzf")
         (fromGitHub "2ca2a8657672e121a5afae87b9d152eeb3726519" "master" "jlcrochet/vim-razor")
         (fromGitHub "45e53f01e4e1c4a3ee20814de232162713aff578" "master" "airblade/vim-rooter")
+        (fromGitHub "2ceda8c65f7b3f9066820729fc02003a09df91f9" "master" "simnalamburt/vim-mundo")
     ];
 
     extraConfigLua = ''
@@ -263,6 +240,11 @@ in
             -- Rooter {{{
             vim.g.rooter_silent_chdir = 1
             vim.g.rooter_manual_only = 1
+            -- }}}
+
+            -- Vim-Mundo {{{
+            vim.g.mundo_preview_bottom = 1
+            -- vim.g.mundo_close_on_revert = 1
             -- }}}
         '';
 }
