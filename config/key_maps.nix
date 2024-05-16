@@ -198,5 +198,15 @@
         action = ":call CommentLinePincer('<!-- ', ' -->')<CR>+";
         mode = ["n" "x"];
     }
+    {
+        key = "<leader>8";
+        lua = true;
+        action = ''
+function()
+    local telescope = require('telescope.builtin')
+    telescope.grep_string({theme = 'dropdown', cwd=vim.fn['FindRootDirectory']() ~= "" and vim.fn['FindRootDirectory']() or vim.fn.getcwd()})
+end
+        '';
+    }
   ];
 }

@@ -48,8 +48,8 @@ in
         telescope = {
             enable = true;
             keymaps = {
+                # <leader>8 is mapped in key_maps.nix
                 "<C-p>" = "git_files";
-                "<leader>8" = "grep_string";
                 "<leader>a" = "live_grep";
             };
         };
@@ -98,6 +98,7 @@ in
         (fromGitHub "d6c1e9790bcb8df27c483a37167459bbebe0112e" "master" "tommcdo/vim-exchange")
         (fromGitHub "bcda25a513abc2d4744bc1f8c910eaae305a5242" "master" "junegunn/fzf")
         (fromGitHub "2ca2a8657672e121a5afae87b9d152eeb3726519" "master" "jlcrochet/vim-razor")
+        (fromGitHub "45e53f01e4e1c4a3ee20814de232162713aff578" "master" "airblade/vim-rooter")
     ];
 
     extraConfigLua = ''
@@ -236,5 +237,9 @@ in
             vim.g.vista_fzf_preview = {}
             -- }}}
 
+            -- Rooter {{{
+            vim.g.rooter_silent_chdir = 1
+            vim.g.rooter_manual_only = 1
+            -- }}}
         '';
 }
