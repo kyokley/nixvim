@@ -117,12 +117,12 @@
       fg = "yellow";
     };
 
-    ExtraWhitespace = {
-      ctermbg = "darkred";
-      ctermfg = "yellow";
-      bg = "darkred";
-      fg = "yellow";
-    };
+    # ExtraWhitespace = {
+    #   ctermbg = "darkred";
+    #   ctermfg = "yellow";
+    #   bg = "darkred";
+    #   fg = "yellow";
+    # };
   };
 
   match = {

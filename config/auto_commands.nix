@@ -144,14 +144,15 @@
         pattern = ["git" "gitcommit"];
         command = "setlocal nolist";
     }
-
-    # I wanted to apply the following during the BufReadPost event but that
-    # didn't seem to work. For now fall back to CursorHold.
     {
-      event = ["CursorHold"];
+      event = ["VimEnter"];
       pattern = "*";
-      command = ''if &filetype != 'Mundo' | match ExtraWhitespace /\s\+$\|\t/ | endif'';
-      group = "general_setup";
+      command = ''if &filetype != 'gitcommit' | match ExtraWhitespace /\s\+$\|\t/ | endif'';
+    }
+    {
+        event = ["VimEnter"];
+        pattern = "*";
+        command = ''if &filetype != 'gitcommit' | highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow | endif'';
     }
   ];
 }
