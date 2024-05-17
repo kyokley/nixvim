@@ -50,12 +50,6 @@
     {
       event = ["BufEnter"];
       pattern = "*";
-      command = "match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'";
-      group = "general_setup";
-    }
-    {
-      event = ["BufEnter"];
-      pattern = "*";
       command = ''let &titlestring = "nvim " . expand("%:p")'';
       group = "general_setup";
     }
@@ -92,11 +86,6 @@
         event = ["FileType"];
         pattern = ["vista" "vista_kind"];
         command = "nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>";
-    }
-    {
-      event = ["BufEnter"];
-      pattern = "*";
-      command = "normal zx zR";
     }
     {
       event = ["DiagnosticChanged"];
