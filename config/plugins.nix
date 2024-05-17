@@ -16,6 +16,7 @@ in
     ];
 
     plugins = {
+        vim-bbye.enable = true;
         lualine.enable = true;
         marks.enable = true;
         indent-o-matic.enable = true;
