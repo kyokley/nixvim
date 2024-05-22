@@ -49,6 +49,7 @@ in
             enable = true;
             keymaps = {
                 # <leader>8 is mapped in key_maps.nix
+                # <leader>a is mapped in key_maps.nix
                 "<C-p>" = "git_files";
                 "<leader>a" = "live_grep";
             };

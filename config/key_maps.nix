@@ -208,5 +208,15 @@ function()
 end
         '';
     }
+    {
+        key = "<leader>a";
+        lua = true;
+        action = ''
+function()
+    local telescope = require('telescope.builtin')
+    telescope.live_grep({theme = 'dropdown', cwd=vim.fn['FindRootDirectory']() ~= "" and vim.fn['FindRootDirectory']() or vim.fn.getcwd()})
+end
+        '';
+    }
   ];
 }
