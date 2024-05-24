@@ -218,5 +218,14 @@ function()
 end
         '';
     }
+    {
+      key = "<leader>to";
+      lua = true;
+      action = ''
+        function()
+        vim.opt.scrolloff = 999 - vim.o.scrolloff
+        end
+        '';
+    }
   ];
 }
