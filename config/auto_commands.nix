@@ -18,12 +18,6 @@
       group = "general_setup";
     }
     {
-        event = ["InsertEnter"];
-        pattern = "*";
-        command = ''if &buftype != 'nofile' | highlight statusline ctermbg=darkred guibg=darkred | endif'';
-        group = "general_setup";
-    }
-    {
       event = ["InsertLeave"];
       pattern = "*";
       command = ''if &buftype != 'nofile' | highlight LineNr ctermbg=NONE guibg=NONE | endif'';
@@ -33,12 +27,6 @@
       event = ["InsertLeave"];
       pattern = "*";
       command = ''if &buftype != 'nofile' && &buftype != 'prompt' | highlight CursorLine ctermbg=darkblue guibg=darkblue | endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["InsertLeave"];
-      pattern = "*";
-      command = ''if &buftype != 'nofile' | highlight statusline ctermbg=darkblue guibg=darkblue | endif'';
       group = "general_setup";
     }
     {

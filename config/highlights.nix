@@ -53,13 +53,6 @@
         fg = "white";
     };
 
-    BufferDefaultCurrentIndex = {
-        cterm = null;
-        ctermbg = "darkblue";
-        bg = "darkblue";
-        fg = "white";
-    };
-
     BufferDefaultCurrentSign = {
         cterm = null;
         ctermbg = "black";
@@ -116,16 +109,9 @@
       bg = "red";
       fg = "yellow";
     };
-
-    # ExtraWhitespace = {
-    #   ctermbg = "darkred";
-    #   ctermfg = "yellow";
-    #   bg = "darkred";
-    #   fg = "yellow";
-    # };
   };
 
   match = {
-    ErrorMsg = ''^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'';
+    ErrorMsg = ''^\(<\|=\|>\)\{7,\}\([^=].\+\)\?$'';
   };
 }

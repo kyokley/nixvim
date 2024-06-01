@@ -17,7 +17,10 @@ in
 
     plugins = {
         vim-bbye.enable = true;
-        lualine.enable = true;
+        lualine = {
+            enable = true;
+            globalstatus = false;
+        };
         marks.enable = true;
         indent-o-matic.enable = true;
         rainbow-delimiters.enable = true;
