@@ -32,6 +32,7 @@
           module = ./minimal.nix;
         };
         minimalNvim = nixvim'.makeNixvimWithModule minimalNixvimModule;
+
         nixvimModule = {
           inherit pkgs;
           module = ./default.nix;
@@ -41,17 +42,25 @@
           };
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
+
+        dosNixvimModule = {
+          inherit pkgs;
+          module = ./dos.nix;
+        };
+        dosNvim = nixvim'.makeNixvimWithModule dosNixvimModule;
       in {
         checks = {
           # Run `nix flake check .` to verify that your config is not broken
           default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
           minimal = nixvimLib.check.mkTestDerivationFromNixvimModule minimalNixvimModule;
+          dos = nixvimLib.check.mkTestDerivationFromNixvimModule dosNixvimModule;
         };
 
         packages = {
           # Lets you run `nix run .` to start nixvim
           default = nvim;
           minimal = minimalNvim;
+          dos = dosNvim;
         };
       };
     };
