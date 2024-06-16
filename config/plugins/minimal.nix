@@ -1,4 +1,4 @@
-{pkgs, lib, ...}:
+{ pkgs, lib, ... }:
 let
 fromGitHub = rev: ref: repo: pkgs.vimUtils.buildVimPlugin {
     pname = "${lib.strings.sanitizeDerivationName repo}";
@@ -11,10 +11,6 @@ fromGitHub = rev: ref: repo: pkgs.vimUtils.buildVimPlugin {
 };
 in
 {
-    extraPython3Packages = p: with p; [
-        bandit
-    ];
-
     plugins = {
         vim-bbye.enable = true;
         lualine = {
@@ -96,7 +92,7 @@ in
         };
     };
 
-    extraPlugins = with pkgs.vimPlugins; [
+    extraPlugins = [
         (fromGitHub "32929480b1753a5c2a99435e891da9be1e61e0b9" "main" "willothy/nvim-cokeline")
         (fromGitHub "04fa99afe865b16324af94fd8a8391121117d8f7" "master" "liuchengxu/vista.vim")
         (fromGitHub "d6c1e9790bcb8df27c483a37167459bbebe0112e" "master" "tommcdo/vim-exchange")
