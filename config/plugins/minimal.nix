@@ -19,7 +19,6 @@ in
         };
         marks.enable = true;
         indent-o-matic.enable = true;
-        rainbow-delimiters.enable = true;
         illuminate.enable = true;
         alpha = {
             enable = true;
@@ -53,51 +52,15 @@ in
                 "<leader>a" = "live_grep";
             };
         };
-        treesitter.enable = true;
+        treesitter.enable = lib.mkDefault false;
+        cmp.enable = lib.mkDefault false;
 
-        cmp = {
-            enable = true;
-            autoEnableSources = true;
-            settings.sources = [
-            {name = "nvim_lsp";}
-            {name = "path";}
-            {name = "buffer";}
-            ];
-
-            settings.mapping = {
-                "<CR>" = "cmp.mapping.confirm({ select = true })";
-                "<Tab>" = ''
-                    cmp.mapping(
-                            function(fallback)
-                            if cmp.visible() then
-                            cmp.select_next_item()
-                            else
-                            fallback()
-                            end
-                            end,
-                            {"i", "s"})
-                '';
-                "<S-Tab>" = ''
-                    cmp.mapping(
-                            function(fallback)
-                            if cmp.visible() then
-                            cmp.select_prev_item()
-                            else
-                            fallback()
-                            end
-                            end,
-                            {"i", "s"})
-                '';
-            };
-        };
     };
 
     extraPlugins = [
         (fromGitHub "32929480b1753a5c2a99435e891da9be1e61e0b9" "main" "willothy/nvim-cokeline")
-        (fromGitHub "04fa99afe865b16324af94fd8a8391121117d8f7" "master" "liuchengxu/vista.vim")
         (fromGitHub "d6c1e9790bcb8df27c483a37167459bbebe0112e" "master" "tommcdo/vim-exchange")
         (fromGitHub "bcda25a513abc2d4744bc1f8c910eaae305a5242" "master" "junegunn/fzf")
-        (fromGitHub "2ca2a8657672e121a5afae87b9d152eeb3726519" "master" "jlcrochet/vim-razor")
         (fromGitHub "45e53f01e4e1c4a3ee20814de232162713aff578" "master" "airblade/vim-rooter")
         (fromGitHub "2ceda8c65f7b3f9066820729fc02003a09df91f9" "master" "simnalamburt/vim-mundo")
     ];
