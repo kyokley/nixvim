@@ -20,6 +20,7 @@ in
     ];
 
     plugins = {
+        oil.enable = true;
         treesitter.enable = true;
         rainbow-delimiters.enable = true;
         cmp = {
