@@ -22,6 +22,7 @@ in
     plugins = {
         oil.enable = true;
         treesitter.enable = true;
+        telescope.enable = true;
         rainbow-delimiters.enable = true;
         cmp = {
             enable = true;

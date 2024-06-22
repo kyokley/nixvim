@@ -44,7 +44,7 @@ in
         };
 
         telescope = {
-            enable = true;
+            enable = lib.mkDefault false;
             keymaps = {
                 # <leader>8 is mapped in key_maps.nix
                 # <leader>a is mapped in key_maps.nix
