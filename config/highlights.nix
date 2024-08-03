@@ -1,7 +1,12 @@
 {
   colorschemes.catppuccin = {
-    enable = true;
+    enable = false;
     settings.flavour = "mocha";
+  };
+
+  colorschemes.nightfox = {
+    enable = true;
+    settings.flavor = "carbonfox";
   };
 
   highlightOverride = {
