@@ -68,6 +68,7 @@ in
         (fromGitHub "2ceda8c65f7b3f9066820729fc02003a09df91f9" "master" "simnalamburt/vim-mundo")
         (fromGitHub "d6c1e9790bcb8df27c483a37167459bbebe0112e" "master" "tommcdo/vim-exchange")
         (fromGitHub "45e53f01e4e1c4a3ee20814de232162713aff578" "master" "airblade/vim-rooter")
+        (fromGitHub "0182447e2ff4dfa04cd2dfe5f189e012c581ca45" "master" "wookayin/semshi")
     ];
 
     extraConfigLua = ''

@@ -10,7 +10,7 @@
                 lua-ls.enable = true;
                 ruff.enable = true;
                 pylsp.enable = true;
-                nil_ls.enable = true;
+                nil-ls.enable = true;
                 csharp-ls.enable = true;
             };
         };

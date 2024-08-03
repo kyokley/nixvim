@@ -210,8 +210,7 @@
     }
     {
         key = "<leader>8";
-        lua = true;
-        action = ''
+        action.__raw = ''
 function()
     local telescope = require('telescope.builtin')
     telescope.grep_string({theme = 'dropdown', cwd=vim.fn['FindRootDirectory']() ~= "" and vim.fn['FindRootDirectory']() or vim.fn.getcwd()})
@@ -220,8 +219,7 @@ end
     }
     {
         key = "<leader>a";
-        lua = true;
-        action = ''
+        action.__raw = ''
 function()
     local telescope = require('telescope.builtin')
     telescope.live_grep({theme = 'dropdown', cwd=vim.fn['FindRootDirectory']() ~= "" and vim.fn['FindRootDirectory']() or vim.fn.getcwd()})
@@ -230,11 +228,10 @@ end
     }
     {
       key = "<leader>to";
-      lua = true;
-      action = ''
-        function()
-        vim.opt.scrolloff = 999 - vim.o.scrolloff
-        end
+      action.__raw = ''
+function()
+    vim.opt.scrolloff = 999 - vim.o.scrolloff
+end
         '';
     }
   ];
