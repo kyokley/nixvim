@@ -45,8 +45,8 @@
                 silent $,$delete
 
                 try
-                    let pyflakes_cmd = '%!ruff --stdin-filename ' . s:file_name . ' -'
-                    let bandit_cmd = '%!bandit -ll -s B322,B101 -'
+                    let pyflakes_cmd = '%!ruff check --stdin-filename ' . s:file_name . ' -'
+                    let bandit_cmd = '%!bandit -ll -s B101 -'
 
                     silent execute pyflakes_cmd
 
@@ -54,6 +54,7 @@
                                 \ 'unexpected indent',
                                 \ 'expected an indented block',
                                 \ 'invalid syntax',
+                                \ 'invalid assignment',
                                 \ 'unindent does not match any outer indentation level',
                                 \ 'EOL while scanning string literal',
                                 \ 'redefinition of unused',
