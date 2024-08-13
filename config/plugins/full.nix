@@ -62,12 +62,12 @@ in
     };
 
     extraPlugins = [
-        (fromGitHub "04fa99afe865b16324af94fd8a8391121117d8f7" "master" "liuchengxu/vista.vim")
-        (fromGitHub "2ca2a8657672e121a5afae87b9d152eeb3726519" "master" "jlcrochet/vim-razor")
-        (fromGitHub "bcda25a513abc2d4744bc1f8c910eaae305a5242" "master" "junegunn/fzf")
+        (fromGitHub "c07585b588071adc8e9670becadb89307153e4d1" "master" "liuchengxu/vista.vim")
+        (fromGitHub "305dd1db88c657c0c02effbee1a88048479bb0c4" "master" "jlcrochet/vim-razor")
+        (fromGitHub "e28f5aa45baf20ffdba469e11a998d3016c8cb42" "master" "junegunn/fzf")
         (fromGitHub "2ceda8c65f7b3f9066820729fc02003a09df91f9" "master" "simnalamburt/vim-mundo")
         (fromGitHub "d6c1e9790bcb8df27c483a37167459bbebe0112e" "master" "tommcdo/vim-exchange")
-        (fromGitHub "45e53f01e4e1c4a3ee20814de232162713aff578" "master" "airblade/vim-rooter")
+        (fromGitHub "4a0df2f1b0f3d69e8f7e19afe464a7c3a7af89a2" "master" "airblade/vim-rooter")
         (fromGitHub "0182447e2ff4dfa04cd2dfe5f189e012c581ca45" "master" "wookayin/semshi")
     ];
 
