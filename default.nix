@@ -9,4 +9,6 @@
             ./config/auto_commands.nix
             ./config/lsp.nix
     ];
+
+    vimAlias = true;
 }
