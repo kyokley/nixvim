@@ -8,5 +8,7 @@
             ./config/functions.nix
             ./config/auto_commands.nix
     ];
+
+    vimAlias = true;
 }
 
