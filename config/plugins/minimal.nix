@@ -15,7 +15,7 @@ in
         vim-bbye.enable = true;
         lualine = {
             enable = true;
-            globalstatus = false;
+            settings.options.globalstatus = false;
         };
         marks.enable = true;
         indent-o-matic.enable = true;
