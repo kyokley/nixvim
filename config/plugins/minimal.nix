@@ -12,6 +12,7 @@ fromGitHub = rev: ref: repo: pkgs.vimUtils.buildVimPlugin {
 in
 {
     plugins = {
+        web-devicons.enable = true;
         vim-bbye.enable = true;
         lualine = {
             enable = true;

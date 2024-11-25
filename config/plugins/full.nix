@@ -20,7 +20,6 @@ in
     ];
 
     plugins = {
-        web-devicons.enable = true;
         oil.enable = true;
         treesitter.enable = true;
         telescope.enable = true;
