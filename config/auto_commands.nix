@@ -131,5 +131,10 @@
         pattern = "*";
         command = ''if &filetype != 'gitcommit' | highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow | endif'';
     }
+    {
+        event = ["FileType"];
+        pattern = [ "nix" ];
+        command = "setlocal shiftwidth=2";
+    }
   ];
 }
