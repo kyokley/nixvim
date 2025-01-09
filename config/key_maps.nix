@@ -185,8 +185,9 @@
     }
     {
         key = "<leader>sp";
-        action = ":%!docker run --rm -i kyokley/sqlparse --keywords upper --identifiers lower --reindent -";
+        action = ":%!docker run --rm -i kyokley/sqlparse --keywords upper --identifiers lower --reindent -<CR>";
         mode = ["n" "x"];
+        options = {silent = true;};
     }
 
     {
