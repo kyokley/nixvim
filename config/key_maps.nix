@@ -138,16 +138,6 @@
         mode = ["n"];
     }
     {
-        key = "<leader>gq";
-        action = '':<C-U>lua vim.lsp.buf.format({async = true})<CR>'';
-        mode = ["n"];
-    }
-    {
-        key = "<leader>gq";
-        action = '':<C-U>lua vim.lsp.buf.format({async = true, range = { ["start"] = vim.api.nvim_buf_get_mark(0, "<"), ["end"] = vim.api.nvim_buf_get_mark(0, ">")}})<CR>'';
-        mode = ["v"];
-    }
-    {
         key = "<F3>";
         action = ":NvimTreeToggle<CR>";
         mode = ["n"];

@@ -56,10 +56,27 @@ in
         treesitter.enable = lib.mkDefault false;
         cmp.enable = lib.mkDefault false;
 
+        conform-nvim = {
+        enable = true;
+        settings = {
+          formatters_by_ft = {
+            lua = [ "stylua" ];
+            python = [ "ruff_format" "isort" ];
+            nix = [ "alejandra" ];
+            html = [ "htmlbeautifier" ];
+            json = [ "jq" ];
+            javascript = [ "'prettier" ];
+            bash = [ "shfmt" ];
+            yaml = [ "yamlfmt" ];
+          };
+        };
+      };
+
     };
 
     extraPlugins = [
         (fromGitHub "32929480b1753a5c2a99435e891da9be1e61e0b9" "main" "willothy/nvim-cokeline")
+        (fromGitHub "70019124aa4f2e6838be9fbd2007f6d13b27a96d" "master" "stevearc/conform.nvim")
     ];
 
     extraConfigLua = ''
