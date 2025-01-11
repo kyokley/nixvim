@@ -75,7 +75,7 @@ in
     };
 
     extraPlugins = [
-        (fromGitHub "32929480b1753a5c2a99435e891da9be1e61e0b9" "main" "willothy/nvim-cokeline")
+        (fromGitHub "adfd1eb87e0804b6b86126e03611db6f62bb2909" "main" "willothy/nvim-cokeline")
         (fromGitHub "70019124aa4f2e6838be9fbd2007f6d13b27a96d" "master" "stevearc/conform.nvim")
     ];
 
