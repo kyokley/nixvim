@@ -59,6 +59,36 @@ in
                 '';
             };
         };
+        conform-nvim = {
+        enable = true;
+        settings = {
+          formatters_by_ft = {
+            lua = [ "stylua" ];
+            python = [ "ruff_format" "isort" ];
+            nix = [ "alejandra" ];
+            html = [ "htmlbeautifier" ];
+            htmldjango = [ "djhtml" ];
+            json = [ "jq" ];
+            javascript = [ "prettier" ];
+            bash = [ "shfmt" ];
+            yaml = [ "yamlfmt" ];
+          };
+          formatters = {
+            stylua.command = lib.getExe pkgs.stylua;
+            isort.command = lib.getExe pkgs.isort;
+            alejandra.command = lib.getExe pkgs.alejandra;
+            htmlbeautifier.command = lib.getExe pkgs.rubyPackages.htmlbeautifier;
+            djhtml = {
+              command = lib.getExe pkgs.djhtml;
+              stdin = true;
+              args = [ "-" ];
+            };
+            prettier.command = lib.getExe pkgs.nodePackages.prettier;
+            shfmt.command = lib.getExe pkgs.shfmt;
+            yamlfmt.command = lib.getExe pkgs.yamlfmt;
+          };
+        };
+      };
     };
 
     extraPlugins = [
@@ -69,6 +99,7 @@ in
         (fromGitHub "d6c1e9790bcb8df27c483a37167459bbebe0112e" "master" "tommcdo/vim-exchange")
         (fromGitHub "4a0df2f1b0f3d69e8f7e19afe464a7c3a7af89a2" "master" "airblade/vim-rooter")
         (fromGitHub "0182447e2ff4dfa04cd2dfe5f189e012c581ca45" "master" "wookayin/semshi")
+        (fromGitHub "70019124aa4f2e6838be9fbd2007f6d13b27a96d" "master" "stevearc/conform.nvim")
     ];
 
     extraConfigLua = ''
