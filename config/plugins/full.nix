@@ -87,6 +87,7 @@ in
             shfmt.command = lib.getExe pkgs.shfmt;
             yamlfmt.command = lib.getExe pkgs.yamlfmt;
           };
+          default_format_opts.lsp_format = "fallback";
         };
       };
     };
