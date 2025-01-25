@@ -94,6 +94,10 @@ in {
         default_format_opts.lsp_format = "fallback";
       };
     };
+    diffview = {
+      enable = true;
+      enhancedDiffHl = true;
+    };
   };
 
   extraPlugins = [
