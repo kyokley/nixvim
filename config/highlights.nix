@@ -11,8 +11,8 @@
 
   highlightOverride = {
     EndOfBuffer = {
-        ctermbg = null;
-        bg = null;
+      ctermbg = null;
+      bg = null;
     };
     # Normal = {
     #     ctermbg = "black";
@@ -28,10 +28,10 @@
     # };
 
     CursorLine = {
-        ctermbg = "darkblue";
-        # ctermfg = "white";
-        bg = "darkblue";
-        # fg = "white";
+      ctermbg = "darkblue";
+      # ctermfg = "white";
+      bg = "darkblue";
+      # fg = "white";
     };
 
     # ColorColumn = {
@@ -114,7 +114,6 @@
       bg = "red";
       fg = "yellow";
     };
-
   };
 
   match = {

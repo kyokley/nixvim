@@ -66,23 +66,25 @@
       group = "general_setup";
     }
     {
-        event = ["BufWritePre"];
-        pattern = "*";
-        command = "call RaiseExceptionForUnresolvedErrors()";
+      event = ["BufWritePre"];
+      pattern = "*";
+      command = "call RaiseExceptionForUnresolvedErrors()";
     }
     {
-        event = ["FileType"];
-        pattern = ["vista" "vista_kind"];
-        command = "nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>";
+      event = ["FileType"];
+      pattern = ["vista" "vista_kind"];
+      command = "nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>";
     }
     {
       event = ["DiagnosticChanged"];
       pattern = "*";
-      callback = { __raw = ''
-      function(args)
-        vim.diagnostic.setloclist({open = false})
-      end
-      ''; };
+      callback = {
+        __raw = ''
+          function(args)
+            vim.diagnostic.setloclist({open = false})
+          end
+        '';
+      };
       group = "general_setup";
     }
     {
@@ -107,19 +109,19 @@
     # already exists. Instead, replace :q with :cq to force vim to exit with
     # an error code.
     {
-        event = ["FileType"];
-        pattern = ["gitcommit"];
-        command = "cnoreabbrev <expr> q getcmdtype() == ':' && getcmdline()[0] == 'q' ? 'cq' : 'q'";
+      event = ["FileType"];
+      pattern = ["gitcommit"];
+      command = "cnoreabbrev <expr> q getcmdtype() == ':' && getcmdline()[0] == 'q' ? 'cq' : 'q'";
     }
     {
-        event = ["FileType"];
-        pattern = ["git" "gitcommit"];
-        command = "setlocal nospell";
+      event = ["FileType"];
+      pattern = ["git" "gitcommit"];
+      command = "setlocal nospell";
     }
     {
-        event = ["FileType"];
-        pattern = ["git" "gitcommit"];
-        command = "setlocal nolist";
+      event = ["FileType"];
+      pattern = ["git" "gitcommit"];
+      command = "setlocal nolist";
     }
     {
       event = ["VimEnter"];
@@ -127,14 +129,14 @@
       command = ''if &filetype != 'gitcommit' | match ExtraWhitespace /\s\+$\|\t/ | endif'';
     }
     {
-        event = ["VimEnter"];
-        pattern = "*";
-        command = ''if &filetype != 'gitcommit' | highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow | endif'';
+      event = ["VimEnter"];
+      pattern = "*";
+      command = ''if &filetype != 'gitcommit' | highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow | endif'';
     }
     {
-        event = ["FileType"];
-        pattern = [ "nix" ];
-        command = "setlocal shiftwidth=2";
+      event = ["FileType"];
+      pattern = ["nix"];
+      command = "setlocal shiftwidth=2";
     }
   ];
 }
