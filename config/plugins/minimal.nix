@@ -61,6 +61,8 @@ in {
   };
 
   extraPlugins = [
+    pkgs.ripgrep
+    pkgs.fd
     (fromGitHub "adfd1eb87e0804b6b86126e03611db6f62bb2909" "main" "willothy/nvim-cokeline")
   ];
 

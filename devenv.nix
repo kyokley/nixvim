@@ -9,7 +9,7 @@
   # env.GREET = "devenv";
 
   # https://devenv.sh/packages/
-  # packages = [ pkgs.git ];
+  packages = [pkgs.nix];
 
   # https://devenv.sh/languages/
   # languages.lua.enable = true;

@@ -82,6 +82,7 @@ in {
           isort.command = lib.getExe pkgs.isort;
           alejandra.command = lib.getExe pkgs.alejandra;
           htmlbeautifier.command = lib.getExe pkgs.rubyPackages.htmlbeautifier;
+          jq.command = lib.getExe pkgs.jq;
           djhtml = {
             command = lib.getExe pkgs.djhtml;
             stdin = true;
