@@ -24,7 +24,7 @@ in {
     ];
 
   plugins = {
-    oil.enable = true;
+    oil.enable = false;
     treesitter.enable = true;
     telescope.enable = true;
     rainbow-delimiters.enable = true;
