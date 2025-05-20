@@ -1,10 +1,10 @@
 {
-    imports = [
-        ./default.nix
-    ];
-    opts = {
-        "fileformat" = "dos";
-        "fileformats" = "dos,unix";
-        "makeprg" = "dotnet\ build";
-    };
+  imports = [
+    ./default.nix
+  ];
+  opts = {
+    "fileformat" = "dos";
+    "fileformats" = "dos,unix";
+    "makeprg" = "dotnet\ build";
+  };
 }
