@@ -28,6 +28,9 @@ in {
     treesitter.enable = true;
     telescope.enable = true;
     rainbow-delimiters.enable = true;
+    hardtime = {
+      enable = true;
+    };
     cmp = {
       enable = true;
       autoEnableSources = true;
