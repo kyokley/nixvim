@@ -2,18 +2,7 @@
   pkgs,
   lib,
   ...
-}: let
-  fromGitHub = rev: ref: repo:
-    pkgs.vimUtils.buildVimPlugin {
-      pname = "${lib.strings.sanitizeDerivationName repo}";
-      version = ref;
-      src = builtins.fetchGit {
-        url = "https://github.com/${repo}.git";
-        ref = ref;
-        rev = rev;
-      };
-    };
-in {
+}: {
   imports = [
     ./minimal.nix
   ];
@@ -100,14 +89,15 @@ in {
     };
   };
 
-  extraPlugins = [
-    (fromGitHub "1e90efad6e32c4f7d16b1ca8f49bf63d0693802e" "master" "liuchengxu/vista.vim")
-    (fromGitHub "45fc7b903d1aab0871f03cbe1c4fbec71b932d9f" "master" "junegunn/fzf")
-    (fromGitHub "2ceda8c65f7b3f9066820729fc02003a09df91f9" "master" "simnalamburt/vim-mundo")
-    (fromGitHub "d6c1e9790bcb8df27c483a37167459bbebe0112e" "master" "tommcdo/vim-exchange")
-    (fromGitHub "51402fb77c4d6ae94994e37dc7ca13bec8f4afcc" "master" "airblade/vim-rooter")
-    (fromGitHub "0182447e2ff4dfa04cd2dfe5f189e012c581ca45" "master" "wookayin/semshi")
-    (fromGitHub "70019124aa4f2e6838be9fbd2007f6d13b27a96d" "master" "stevearc/conform.nvim")
+  extraPlugins = with pkgs.vimPlugins; [
+    vista-vim
+    # fzf-vim
+    fzf-lua
+    vim-mundo
+    vim-exchange
+    vim-rooter
+    semshi
+    conform-nvim
   ];
 
   extraConfigLua = ''

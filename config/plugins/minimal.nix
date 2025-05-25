@@ -2,18 +2,7 @@
   pkgs,
   lib,
   ...
-}: let
-  fromGitHub = rev: ref: repo:
-    pkgs.vimUtils.buildVimPlugin {
-      pname = "${lib.strings.sanitizeDerivationName repo}";
-      version = ref;
-      src = builtins.fetchGit {
-        url = "https://github.com/${repo}.git";
-        ref = ref;
-        rev = rev;
-      };
-    };
-in {
+}: {
   plugins = {
     web-devicons.enable = true;
     vim-bbye.enable = true;
@@ -60,8 +49,8 @@ in {
     cmp.enable = lib.mkDefault false;
   };
 
-  extraPlugins = [
-    (fromGitHub "adfd1eb87e0804b6b86126e03611db6f62bb2909" "main" "willothy/nvim-cokeline")
+  extraPlugins = with pkgs.vimPlugins; [
+    nvim-cokeline
   ];
 
   extraConfigLua = ''
