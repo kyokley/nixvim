@@ -49,9 +49,13 @@
     cmp.enable = lib.mkDefault false;
   };
 
+  extraPackages = with pkgs; [
+    ripgrep
+    fd
+    jq
+  ];
+
   extraPlugins = with pkgs.vimPlugins; [
-    pkgs.ripgrep
-    pkgs.fd
     nvim-cokeline
   ];
 
