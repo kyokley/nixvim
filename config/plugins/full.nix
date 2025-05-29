@@ -13,6 +13,7 @@
     ];
 
   plugins = {
+    colorizer.enable = true;
     oil.enable = false;
     treesitter.enable = true;
     telescope.enable = true;
@@ -92,8 +93,7 @@
 
   extraPlugins = with pkgs.vimPlugins; [
     vista-vim
-    # fzf-vim
-    fzf-lua
+    fzf-vim # Needed to use vim version to work with vista-vim
     vim-mundo
     vim-exchange
     vim-rooter
