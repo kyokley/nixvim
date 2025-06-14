@@ -6,10 +6,12 @@
   ...
 }: {
   # https://devenv.sh/basics/
-  # env.GREET = "devenv";
+  env.GREET = "Nixvim";
 
   # https://devenv.sh/packages/
-  packages = [];
+  packages = [
+    pkgs.docker
+  ];
 
   # https://devenv.sh/languages/
   # languages.lua.enable = true;
@@ -21,14 +23,18 @@
   # services.postgres.enable = true;
 
   # https://devenv.sh/scripts/
-  # scripts.hello.exec = ''
-  #   echo hello from $GREET
-  # '';
+  scripts = {
+    hello.exec = ''
+      echo Welcome to $GREET
+    '';
+    build-docker.exec = ''
+      docker build -t kyokley/nixvim --network=host .
+    '';
+  };
 
-  # enterShell = ''
-  #   hello
-  #   git --version
-  # '';
+  enterShell = ''
+    hello
+  '';
 
   # https://devenv.sh/tasks/
   # tasks = {
