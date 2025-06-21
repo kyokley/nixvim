@@ -4,6 +4,7 @@
     settings.options = {
       themable = true;
       numbers = "buffer_id";
+      sort_by = "id";
       separatorStyle = "thick";
       showBufferCloseIcons = false;
       enforceRegularTabs = true;
