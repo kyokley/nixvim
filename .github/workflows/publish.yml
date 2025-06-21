@@ -1,0 +1,19 @@
+name: "Publish Docker Image"
+on:
+  push:
+    branches: [main, docker]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Docker Login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Build Image
+        run: docker build -t kyokley/nixvim .
+      - name: Publish
+        run: docker push kyokley/nixvim
