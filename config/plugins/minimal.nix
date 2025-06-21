@@ -193,6 +193,10 @@
                 -- components.unsaved,
                 components.right_cap,
                 },
+
+                buffers = {
+                  new_buffers_position = 'number'
+                },
         })
         -- }}}
   '';
