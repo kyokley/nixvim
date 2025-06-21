@@ -12,9 +12,9 @@ RUN mkdir /tmp/nix-store-closure && \
 
 
 FROM scratch
-WORKDIR /nixvim
-
 COPY --from=builder /tmp/nix-store-closure /nix/store
 COPY --from=builder /tmp/build/result /nixvim
+
+WORKDIR /files
 
 ENTRYPOINT ["/nixvim/bin/vim"]
