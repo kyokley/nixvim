@@ -40,8 +40,6 @@
     "inccommand" = "split";
     "guicursor" = "";
     "termguicolors" = true;
-    "foldmethod" = "expr";
-    "foldexpr" = "nvim_treesitter#foldexpr()";
     "foldlevel" = 20;
     "title" = true;
     "formatexpr" = "v:lua.require'conform'.formatexpr()";
