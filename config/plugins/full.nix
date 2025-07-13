@@ -13,6 +13,21 @@
     ];
 
   plugins = {
+    noice = {
+      enable = true;
+      settings = {
+        messages = {
+          enabled = true;
+          view = "notify";
+        };
+        cmdline = {
+          enabled = true;
+          view = "cmdline_popup";
+        };
+      };
+    };
+    notify.enable = true;
+    hmts.enable = true;
     colorizer.enable = true;
     oil.enable = false;
     treesitter = {
