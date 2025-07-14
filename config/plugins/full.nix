@@ -150,7 +150,6 @@
     vim-mundo
     vim-exchange
     vim-rooter
-    semshi
     conform-nvim
   ];
 
