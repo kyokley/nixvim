@@ -21,8 +21,8 @@ jobs:
       #   run: docker push kyokley/nixvim
 
       - name: Build Image
-        run: nix build
+        run: nix build '.#docker-image'
       - name: Load Image
-        run: docker load -i result
+        run: docker load < result
       # - name: Publish
       #   run: docker push kyokley/nixvim
