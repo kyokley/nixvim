@@ -23,6 +23,6 @@ jobs:
       - name: Build Image
         run: nix build
       - name: Load Image
-        run: docker load < result
+        run: docker load -i result
       # - name: Publish
       #   run: docker push kyokley/nixvim
