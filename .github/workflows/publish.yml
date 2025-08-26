@@ -1,6 +1,5 @@
 name: "Publish Docker Image"
 on:
-  pull_request:
   push:
     branches: [main]
 jobs:
@@ -24,5 +23,5 @@ jobs:
         run: nix build '.#docker-image'
       - name: Load Image
         run: docker load < result
-      # - name: Publish
-      #   run: docker push kyokley/nixvim
+      - name: Publish
+        run: docker push kyokley/nixvim
