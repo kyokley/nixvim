@@ -68,6 +68,18 @@
           default = nvim;
           minimal = minimalNvim;
           dos = dosNvim;
+          docker-image = pkgs.dockerTools.buildImage {
+            name = "kyokley/nixvim";
+            tag = "latest";
+            copyToRoot = pkgs.buildEnv {
+              name = "image-root";
+              paths = [nvim];
+              pathsToLink = ["/bin"];
+            };
+            config = {
+              Entrypoint = ["/bin/vim"];
+            };
+          };
         };
       };
     };
