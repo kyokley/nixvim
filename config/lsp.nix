@@ -9,7 +9,7 @@
         nginx_language_server.enable = false;
         lua_ls.enable = true;
         ruff.enable = true;
-        pylsp.enable = false;
+        pylsp.enable = true;
         nil_ls = {
           enable = true;
           extraOptions = {
