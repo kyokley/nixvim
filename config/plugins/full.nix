@@ -130,25 +130,33 @@
       settings = {
         fold_virt_text_handler = ''
           function(virtText, lnum, endLnum, width, truncate)
-              local bufnr = 0  -- current buffer
+              local bufnr = 0
 
               local diagnostics = vim.diagnostic.get(bufnr)
-              local count = 0
+              local counts = {
+                [vim.diagnostic.severity.ERROR] = 0,
+                [vim.diagnostic.severity.WARN] = 0,
+                [vim.diagnostic.severity.INFO] = 0,
+                [vim.diagnostic.severity.HINT] = 0,
+              }
 
               for _, diag in ipairs(diagnostics) do
                 if diag.lnum >= lnum and diag.lnum <= endLnum then
-                  count = count + 1
+                  counts[diag.severity] = counts[diag.severity] + 1
                 end
               end
 
-              local newVirtText = {}
+              local suffix = (' 󰁂 %d '):format(endLnum - lnum)
 
-              local suffix
-              if count > 0 then
-                suffix = (' 󰁂 %d 󰅚 %d '):format(endLnum - lnum, count)
-              else
-                suffix = (' 󰁂 %d '):format(endLnum - lnum)
+              if counts[vim.diagnostic.severity.ERROR] > 0 then
+                suffix = suffix .. (' 󰅚 %d '):format(counts[vim.diagnostic.severity.ERROR])
               end
+
+              if counts[vim.diagnostic.severity.WARN] > 0 then
+                suffix = suffix .. ('  %d '):format(counts[vim.diagnostic.severity.WARN])
+              end
+
+              local newVirtText = {}
 
               local sufWidth = vim.fn.strdisplaywidth(suffix)
               local targetWidth = width - sufWidth
