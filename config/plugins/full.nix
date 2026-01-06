@@ -146,14 +146,14 @@
                 end
               end
 
-              local suffix = (' 󰁂 %d '):format(endLnum - lnum)
+              local suffix = (' 󰁂 %d  '):format(endLnum - lnum)
 
               if counts[vim.diagnostic.severity.ERROR] > 0 then
-                suffix = suffix .. (' 󰅚 %d '):format(counts[vim.diagnostic.severity.ERROR])
+                suffix = suffix .. ('󰅚 %d '):format(counts[vim.diagnostic.severity.ERROR])
               end
 
               if counts[vim.diagnostic.severity.WARN] > 0 then
-                suffix = suffix .. ('  %d '):format(counts[vim.diagnostic.severity.WARN])
+                suffix = suffix .. (' %d '):format(counts[vim.diagnostic.severity.WARN])
               end
 
               local newVirtText = {}
