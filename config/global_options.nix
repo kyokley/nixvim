@@ -40,7 +40,7 @@
     "inccommand" = "split";
     "guicursor" = "";
     "termguicolors" = true;
-    "foldlevel" = 20;
+    "foldlevel" = 99; # Need high value for nvim-ufo
     "title" = true;
     "formatexpr" = "v:lua.require'conform'.formatexpr()";
   };
