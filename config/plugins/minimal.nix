@@ -26,7 +26,7 @@
     illuminate.enable = true;
     alpha = {
       enable = true;
-      theme = "startify";
+      # theme = "startify";
       settings = {
         layout = [
           {
