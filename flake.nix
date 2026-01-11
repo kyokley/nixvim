@@ -50,6 +50,8 @@
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
 
+        nvimWithAider = nvim.extend {imports = [./config/plugins/aider.nix];};
+
         dosNixvimModule = {
           inherit pkgs;
           module = ./dos.nix;
@@ -59,19 +61,19 @@
         devShell = let
           nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim {
             plugins = {
-              snacks.enable = true;
+              # snacks.enable = true;
             };
             extraPlugins = [
-              (pkgs.vimUtils.buildVimPlugin {
-                name = "nvim-aider";
-                src = pkgs.fetchFromGitHub {
-                  owner = "GeorgesAlkhouri";
-                  repo = "nvim-aider";
-                  rev = "main";
-                  hash = "sha256-LHSDfn9I+Ff83u8DZlom7fgZNwqSZ1h72y6NJq0eKTw=";
-                };
-                doCheck = false;
-              })
+              # (pkgs.vimUtils.buildVimPlugin {
+              #   name = "nvim-aider";
+              #   src = pkgs.fetchFromGitHub {
+              #     owner = "GeorgesAlkhouri";
+              #     repo = "nvim-aider";
+              #     rev = "main";
+              #     hash = "sha256-LHSDfn9I+Ff83u8DZlom7fgZNwqSZ1h72y6NJq0eKTw=";
+              #   };
+              #   doCheck = false;
+              # })
             ];
           };
         in
@@ -89,6 +91,7 @@
         packages = {
           # Lets you run `nix run .` to start nixvim
           default = nvim;
+          inherit nvimWithAider;
           minimal = minimalNvim;
           dos = dosNvim;
           docker-image = pkgs.dockerTools.buildImage {

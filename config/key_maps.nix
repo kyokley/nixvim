@@ -36,16 +36,6 @@
       mode = ["i"];
     }
     {
-      key = "jj";
-      action = "<C-\\><C-n>";
-      mode = ["t"];
-    }
-    {
-      key = "kk";
-      action = "<C-\\><C-n>";
-      mode = ["t"];
-    }
-    {
       key = "JJ";
       action = "<Esc>";
       mode = ["i"];
@@ -240,51 +230,6 @@
             vim.opt.scrolloff = 999 - vim.o.scrolloff
         end
       '';
-    }
-    {
-      key = "<space>a/";
-      action = ":Aider toggle<cr>";
-      mode = ["n" "x"];
-    }
-    {
-      key = "<space>as";
-      action = ":Aider send<cr>";
-      mode = ["n" "x"];
-    }
-    {
-      key = "<space>ac";
-      action = ":Aider command<cr>";
-      mode = ["n" "x"];
-    }
-    {
-      key = "<space>ab";
-      action = ":Aider buffer<cr>";
-      mode = ["n" "x"];
-    }
-    {
-      key = "<space>a+";
-      action = ":Aider add<cr>";
-      mode = ["n" "x"];
-    }
-    {
-      key = "<space>a-";
-      action = ":Aider drop<cr>";
-      mode = ["n" "x"];
-    }
-    {
-      key = "<space>ar";
-      action = ":Aider add readonly<cr>";
-      mode = ["n" "x"];
-    }
-    # {
-    #   key = "<space>aR";
-    #   action = ":Aider reset<cr>";
-    #   mode = ["n" "x"];
-    # }
-    {
-      key = "<space>a+";
-      action = ":AiderTreeAddFile<cr>";
-      mode = ["n" "x"];
     }
   ];
 }

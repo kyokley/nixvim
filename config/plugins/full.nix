@@ -13,7 +13,6 @@
     ];
 
   plugins = {
-    snacks.enable = true;
     numbertoggle.enable = true;
     colorizer.enable = true;
     treesitter = {
@@ -200,16 +199,6 @@
     vim-exchange
     vim-rooter
     conform-nvim
-    (pkgs.vimUtils.buildVimPlugin {
-      name = "nvim-aider";
-      src = pkgs.fetchFromGitHub {
-        owner = "GeorgesAlkhouri";
-        repo = "nvim-aider";
-        rev = "main";
-        hash = "sha256-LHSDfn9I+Ff83u8DZlom7fgZNwqSZ1h72y6NJq0eKTw=";
-      };
-      doCheck = false;
-    })
   ];
 
   extraConfigLua = ''
@@ -232,11 +221,6 @@
     vim.g.mundo_preview_bottom = 1
     -- vim.g.mundo_close_on_revert = 1
     -- }}}
-
-    require('nvim_aider').setup {
-      aider_cmd = "ocaider",
-      args = { "--pretty", "--no-auto-commits", "--model=oca/gpt5" }
-    }
 
     -- {{{ Telescope Config
     local select_one_or_multi = function(prompt_bufnr)
