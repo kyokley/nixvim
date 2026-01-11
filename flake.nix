@@ -37,26 +37,18 @@
         minimalNixvimModule = {
           inherit pkgs;
           module = ./minimal.nix;
-        };
-        minimalNvim = nixvim'.makeNixvimWithModule minimalNixvimModule;
-
-        nixvimModule = {
-          inherit pkgs;
-          module = ./default.nix;
           # You can use `extraSpecialArgs` to pass additional arguments to your module files
           extraSpecialArgs = {
             # inherit (inputs) foo;
           };
         };
-        nvim = nixvim'.makeNixvimWithModule nixvimModule;
+        minimalNvim = nixvim'.makeNixvimWithModule minimalNixvimModule;
+
+        nvim = minimalNvim.extend {imports = [./config/plugins/full.nix];};
 
         nvimWithAider = nvim.extend {imports = [./config/plugins/aider.nix];};
 
-        dosNixvimModule = {
-          inherit pkgs;
-          module = ./dos.nix;
-        };
-        dosNvim = nixvim'.makeNixvimWithModule dosNixvimModule;
+        dosNvim = nvim.extend {imports = [./dos.nix];};
 
         devShell = let
           nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim {
@@ -83,15 +75,24 @@
       in {
         checks = {
           # Run `nix flake check .` to verify that your config is not broken
-          default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
-          minimal = nixvimLib.check.mkTestDerivationFromNixvimModule minimalNixvimModule;
-          dos = nixvimLib.check.mkTestDerivationFromNixvimModule dosNixvimModule;
+          default = nixvimLib.check.mkTestDerivationFromNvim {
+            inherit nvim;
+            name = "default test";
+          };
+          minimal = nixvimLib.check.mkTestDerivationFromNvim {
+            nvim = minimalNvim;
+            name = "minimal test";
+          };
+          dos = nixvimLib.check.mkTestDerivationFromNvim {
+            nvim = dosNvim;
+            name = "dos test";
+          };
         };
 
         packages = {
           # Lets you run `nix run .` to start nixvim
           default = nvim;
-          inherit nvimWithAider;
+          withAider = nvimWithAider;
           minimal = minimalNvim;
           dos = dosNvim;
           docker-image = pkgs.dockerTools.buildImage {
