@@ -36,6 +36,16 @@
       mode = ["i"];
     }
     {
+      key = "jj";
+      action = "<C-\\><C-n>";
+      mode = ["t"];
+    }
+    {
+      key = "kk";
+      action = "<C-\\><C-n>";
+      mode = ["t"];
+    }
+    {
       key = "JJ";
       action = "<Esc>";
       mode = ["i"];
