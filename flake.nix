@@ -53,7 +53,10 @@
         devShell = let
           nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim {
             plugins = {
-              # snacks.enable = true;
+              alpha = {
+                enable = true;
+                theme = "dashboard";
+              };
             };
             extraPlugins = [
               # (pkgs.vimUtils.buildVimPlugin {
@@ -67,6 +70,75 @@
               #   doCheck = false;
               # })
             ];
+            extraConfigLua = ''
+              local alpha = require("alpha")
+              local dashboard = require("alpha.themes.dashboard")
+              local uv = vim.loop
+
+              local function animated_header(frames, interval)
+                local header = {
+                  type = "text",
+                  val = frames[1],
+                  opts = { position = "center", hl = "Type" },
+                }
+
+                local timer = uv.new_timer()
+                local i = 1
+
+                timer:start(
+                  interval,
+                  interval,
+                  vim.schedule_wrap(function()
+                    if not header.val then
+                      timer:stop()
+                      timer:close()
+                      return
+                    end
+                    i = (i % #frames) + 1
+                    header.val = frames[i]
+                    alpha.redraw()
+                  end)
+                )
+
+                return header
+              end
+
+              local boot_frames = {
+                {
+                  "╭──────────────────────────╮",
+                  "│    booting nvim…        │",
+                  "╰──────────────────────────╯",
+                },
+                {
+                  "╭──────────────────────────╮",
+                  "│    loading plugins…     │",
+                  "╰──────────────────────────╯",
+                },
+                {
+                  "╭──────────────────────────╮",
+                  "│    attaching LSP…       │",
+                  "╰──────────────────────────╯",
+                },
+                {
+                  "╭──────────────────────────╮",
+                  "│  ✔  ready                │",
+                  "╰──────────────────────────╯",
+                },
+              }
+
+              dashboard.section.header = animated_header(boot_frames, 500)
+
+              alpha.setup({
+                layout = {
+                  { type = "padding", val = 2 },
+                  dashboard.section.header,
+                  { type = "padding", val = 2 },
+                  dashboard.section.buttons,
+                  dashboard.section.footer,
+                },
+              })
+
+            '';
           };
         in
           pkgs.mkShell {
