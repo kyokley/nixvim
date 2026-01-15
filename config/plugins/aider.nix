@@ -23,7 +23,7 @@
   extraConfigLua = ''
     require('nvim_aider').setup {
       aider_cmd = vim.env.NIXVIM_AIDER_CMD or "aider",
-      args = { "--pretty", "--no-auto-commits", "--model=oca/gpt5" }
+      args = { "--pretty", "--no-auto-commits", "--model=" .. (vim.env.NIXVIM_AIDER_MODEL or "ollama_chat/gpt-oss")}
     }
   '';
 
@@ -39,7 +39,7 @@
       mode = ["t"];
     }
     {
-      key = "<space>a/";
+      key = "<space>ai";
       action = ":Aider toggle<cr>";
       mode = ["n" "x"];
     }
