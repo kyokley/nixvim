@@ -116,25 +116,31 @@
     " Python Breakpoints {{{
     python3 << EOF
     import vim
+    import os
     def SetBreakpoint():
         import re
         nLine = int(vim.eval('line(".")'))
 
         strLine = vim.current.line
         strWhite = re.search(r'^(\s*)', strLine).group(1)
+        mark = '#' * 30
+
+        pdb_cmd = os.getenv('NIXVIM_PDB_CMD', 'pdb')
 
         vim.current.buffer.append(
-        "%(space)simport pdb; pdb.set_trace()  # %(mark)s Breakpoint %(mark)s" %
-            {'space':strWhite, 'mark': '#' * 30}, nLine - 1)
+        f"{strWhite}import {pdb_cmd}; {pdb_cmd}.set_trace()  # {mark} Breakpoint {mark}",
+        nLine - 1)
 
 
     def RemoveBreakpoints():
+        pdb_cmd = os.getenv('NIXVIM_PDB_CMD', 'pdb')
+
         nCurrentLine = int(vim.eval('line(".")'))
 
         nLines = []
         nLine = 1
         for strLine in vim.current.buffer:
-            if strLine == "import pdb" or strLine.lstrip()[:27] == "import pdb; pdb.set_trace()":
+            if strLine == f'import {pdb_cmd}' or strLine.lstrip().startswith(f'import {pdb_cmd}; {pdb_cmd}.set_trace()'):
                 nLines.append( nLine)
             nLine += 1
 
