@@ -22,7 +22,7 @@
 
   extraConfigLua = ''
     require('nvim_aider').setup {
-      aider_cmd = "ocaider",
+      aider_cmd = vim.env.NIXVIM_AIDER_CMD or "aider",
       args = { "--pretty", "--no-auto-commits", "--model=oca/gpt5" }
     }
   '';
