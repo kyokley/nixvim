@@ -44,9 +44,9 @@
         };
         minimalNvim = nixvim'.makeNixvimWithModule minimalNixvimModule;
 
-        nvim = minimalNvim.extend {imports = [./config/plugins/full.nix];};
+        nvimWithoutAider = minimalNvim.extend {imports = [./config/plugins/full.nix];};
 
-        nvimWithAider = nvim.extend {imports = [./config/plugins/aider.nix];};
+        nvim = nvim.extend {imports = [./config/plugins/aider.nix];};
 
         dosNvim = nvim.extend {imports = [./dos.nix];};
 
@@ -92,7 +92,7 @@
         packages = {
           # Lets you run `nix run .` to start nixvim
           default = nvim;
-          withAider = nvimWithAider;
+          withoutAider = nvimWithoutAider;
           minimal = minimalNvim;
           dos = dosNvim;
           docker-image = pkgs.dockerTools.buildImage {

@@ -1,5 +1,20 @@
 {
   "nodes": {
+    "auto-commit-message": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1769210929,
+        "owner": "kyokley",
+        "repo": "aider-commit",
+        "rev": "0176aa39601e654b7bf50da5a5fee6f127676f6f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kyokley",
+        "repo": "aider-commit",
+        "type": "github"
+      }
+    },
     "devenv": {
       "locked": {
         "dir": "src/modules",
@@ -89,6 +104,7 @@
     },
     "root": {
       "inputs": {
+        "auto-commit-message": "auto-commit-message",
         "devenv": "devenv",
         "git-hooks": "git-hooks",
         "nixpkgs": "nixpkgs",
