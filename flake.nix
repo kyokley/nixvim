@@ -46,7 +46,7 @@
 
         nvimWithoutAider = minimalNvim.extend {imports = [./config/plugins/full.nix];};
 
-        nvim = nvim.extend {imports = [./config/plugins/aider.nix];};
+        nvim = nvimWithoutAider.extend {imports = [./config/plugins/aider.nix];};
 
         dosNvim = nvim.extend {imports = [./dos.nix];};
 
