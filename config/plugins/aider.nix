@@ -23,7 +23,7 @@
   extraConfigLua = ''
     require('nvim_aider').setup {
       aider_cmd = vim.env.NIXVIM_AIDER_CMD or "aider",
-      args = { "--pretty", "--no-auto-commits", "--model=" .. (vim.env.NIXVIM_AIDER_MODEL or "ollama_chat/gpt-oss"), "--no-stream" }
+      args = { "--pretty", "--no-auto-commits", "--model=" .. (vim.env.NIXVIM_AIDER_MODEL or "ollama_chat/gpt-oss"), vim.env.NIXVIM_AIDER_EXTRA_ARGS or "" }
     }
   '';
 
