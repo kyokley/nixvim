@@ -98,12 +98,16 @@
             silent execute bandit_cmd
             silent execute '%s/<stdin>/' . s:file_name . '/e'
 
-            let s:is_res = search('^>> Issue:', 'nw')
+            let s:is_res = search('^>> Issue:', 'w')
             if s:is_res != 0
-                let s:res_end = s:is_res + 2
-                for item in getline(s:is_res, s:res_end)
-                    echohl ErrorMsg | echo item | echohl None
+                let start = line('.')
+                let end = search('^$')
+
+                echoerr "\n"
+                for item in getline(start, end)
+                    echoerr item
                 endfor
+                echoerr "\n"
 
                 bdelete!
                 let &lazyredraw = current_lazyredraw
