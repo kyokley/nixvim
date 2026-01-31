@@ -27,29 +27,9 @@
       auto_reload = true
     }
 
-    function strsplit(inputstr, sep)
-      if sep == nil then
-        sep = "%s"
-      end
-      local t = {}
-      for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-        table.insert(t, str)
-      end
-      return t
-    end
   '';
 
   keymaps = [
-    {
-      key = "<space>jj";
-      action = "<C-\\><C-n>";
-      mode = ["t"];
-    }
-    {
-      key = "<space>kk";
-      action = "<C-\\><C-n>";
-      mode = ["t"];
-    }
     {
       key = "<space>a/";
       action = "<C-\\><C-n>:Aider toggle<cr>";
@@ -97,24 +77,51 @@
     }
     {
       key = "jj";
-      # action = "<C-\\><C-n>";
       action.__raw = ''
-        local win = vim.api.nvim_get_current_win()
-        local buf = vim.api.nvim_win_get_buf(win)
+        function ()
+          local win = vim.api.nvim_get_current_win()
+          local buf = vim.api.nvim_win_get_buf(win)
 
-        local buf_name = vim.api.nvim_buf_get_name(buf)
-        local cmd = strsplit(buf_name)[0]
+          local buf_name = vim.api.nvim_buf_get_name(buf)
 
-        if string.find(cmd, "aider") then
-          return "<C-\\><C-n>"
+          local aider_index = string.find(buf_name, "aider")
+          if aider_index then
+            local whitespace_index = string.find(buf_name, " ")
+            if whitespace_index and whitespace_index > aider_index then
+              local key = vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true)
+              vim.api.nvim_feedkeys(key, 'n', false)
+              return
+            end
+          end
+          vim.api.nvim_feedkeys("jj", 'n', false)
         end
-
-        return "jj"
       '';
       mode = ["t"];
-      options = {
-        buffer = true;
-      };
+      options.nowait = true;
+    }
+    {
+      key = "kk";
+      action.__raw = ''
+        function ()
+          local win = vim.api.nvim_get_current_win()
+          local buf = vim.api.nvim_win_get_buf(win)
+
+          local buf_name = vim.api.nvim_buf_get_name(buf)
+
+          local aider_index = string.find(buf_name, "aider")
+          if aider_index then
+            local whitespace_index = string.find(buf_name, " ")
+            if whitespace_index and whitespace_index > aider_index then
+              local key = vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true)
+              vim.api.nvim_feedkeys(key, 'n', false)
+              return
+            end
+          end
+
+          vim.api.nvim_feedkeys("kk", 'n', false)
+        end
+      '';
+      mode = ["t"];
     }
   ];
 }

@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   autoGroups = {
     general_setup.clear = true;
     terminal_setup.clear = true;
@@ -91,6 +91,18 @@
       event = ["TermOpen"];
       pattern = "*";
       command = ''setlocal nonumber norelativenumber bufhidden=hide'';
+      group = "terminal_setup";
+    }
+    {
+      event = ["TermEnter"];
+      pattern = "*";
+      command = ''set timeoutlen=150'';
+      group = "terminal_setup";
+    }
+    {
+      event = ["TermLeave"];
+      pattern = "*";
+      command = ''set timeoutlen=${toString config.opts.timeoutlen}'';
       group = "terminal_setup";
     }
     {
