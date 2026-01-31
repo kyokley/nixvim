@@ -23,25 +23,26 @@
   extraConfigLua = ''
     require('nvim_aider').setup {
       aider_cmd = vim.env.NIXVIM_AIDER_CMD or "aider",
-      args = { "--pretty", "--no-auto-commits", "--model=" .. (vim.env.NIXVIM_AIDER_MODEL or "ollama_chat/gpt-oss"), vim.env.NIXVIM_AIDER_EXTRA_ARGS or "" }
+      args = { "--pretty", "--no-auto-commits", "--model=" .. (vim.env.NIXVIM_AIDER_MODEL or "ollama_chat/gpt-oss"), vim.env.NIXVIM_AIDER_EXTRA_ARGS or "" },
+      auto_reload = true
     }
   '';
 
   keymaps = [
     {
-      key = "jj";
+      key = "<space>jj";
       action = "<C-\\><C-n>";
       mode = ["t"];
     }
     {
-      key = "kk";
+      key = "<space>kk";
       action = "<C-\\><C-n>";
       mode = ["t"];
     }
     {
-      key = "<space>ai";
-      action = ":Aider toggle<cr>";
-      mode = ["n" "x"];
+      key = "<space>a/";
+      action = "<C-\\><C-n>:Aider toggle<cr>";
+      mode = ["n" "x" "t"];
     }
     {
       key = "<space>as";
@@ -59,7 +60,7 @@
       mode = ["n" "x"];
     }
     {
-      key = "<space>a+";
+      key = "<space>aa";
       action = ":Aider add<cr>";
       mode = ["n" "x"];
     }
