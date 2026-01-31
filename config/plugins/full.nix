@@ -73,6 +73,7 @@
         formatters = {
           stylua.command = lib.getExe pkgs.stylua;
           isort.command = lib.getExe pkgs.isort;
+          ruff_format.command = lib.getExe pkgs.ruff;
           alejandra.command = lib.getExe pkgs.alejandra;
           htmlbeautifier.command = lib.getExe pkgs.rubyPackages.htmlbeautifier;
           jq.command = lib.getExe pkgs.jq;
