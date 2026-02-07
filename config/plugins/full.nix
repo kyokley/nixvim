@@ -102,6 +102,16 @@
         jsonlint.cmd = lib.getExe' pkgs.python313Packages.demjson3 "jsonlint";
         vale.cmd = lib.getExe pkgs.vale;
         tflint.cmd = lib.getExe pkgs.tflint;
+        nix.parser = lib.nixvim.mkRaw ''
+          require('lint.parser').from_pattern(
+          '^(%w+): ([^\n]+)%s+at .+:(%d+):(%d+):$',
+          { 'severity', 'message', 'lnum', 'col' },
+          { error = vim.diagnostic.severity.ERROR },
+          {
+            ['source'] = 'nix',
+            ['severity'] = vim.diagnostic.severity.WARN,
+          })
+        '';
       };
       lintersByFt = {
         nix = ["nix"];
