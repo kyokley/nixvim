@@ -89,6 +89,14 @@
         default_format_opts.lsp_format = "fallback";
       };
     };
+    lint = {
+      enable = true;
+      lintersByFt = {
+        python = [
+          "ruff"
+        ];
+      };
+    };
     diffview = {
       enable = true;
       settings.enhanced_diff_hl = true;
@@ -249,5 +257,8 @@
       }
     }
     -- }}}
+
+    local ruff = require('lint').linters.ruff
+    ruff.cmd = "${lib.getExe pkgs.ruff}";
   '';
 }

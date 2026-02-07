@@ -2,6 +2,7 @@
   autoGroups = {
     general_setup.clear = true;
     terminal_setup.clear = true;
+    lint_setup.clear = true;
   };
 
   autoCmd = [
@@ -149,6 +150,18 @@
       event = ["FileType"];
       pattern = ["nix"];
       command = "setlocal shiftwidth=2";
+    }
+    {
+      event = ["TextChanged" "BufWinEnter" "InsertLeave"];
+      pattern = "*";
+      callback = {
+        __raw = ''
+          function()
+            require("lint").try_lint()
+          end
+        '';
+      };
+      group = "lint_setup";
     }
   ];
 }
