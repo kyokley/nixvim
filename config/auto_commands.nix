@@ -151,17 +151,5 @@
       pattern = ["nix"];
       command = "setlocal shiftwidth=2";
     }
-    {
-      event = ["TextChanged" "BufWinEnter" "InsertLeave"];
-      pattern = "*";
-      callback = {
-        __raw = ''
-          function()
-            require("lint").try_lint()
-          end
-        '';
-      };
-      group = "lint_setup";
-    }
   ];
 }
