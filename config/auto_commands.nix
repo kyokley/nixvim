@@ -2,6 +2,7 @@
   autoGroups = {
     general_setup.clear = true;
     terminal_setup.clear = true;
+    lint_setup.clear = true;
   };
 
   autoCmd = [

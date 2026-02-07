@@ -1,4 +1,8 @@
 {
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./config/bufferline.nix
     ./config/global_options.nix
