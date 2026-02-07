@@ -61,7 +61,7 @@
       settings = {
         formatters_by_ft = {
           lua = ["stylua"];
-          python = ["ruff_format" "isort"];
+          python = ["ruff_format" "ruff_organize_imports"];
           nix = ["alejandra"];
           html = ["htmlbeautifier"];
           htmldjango = ["djhtml"];
