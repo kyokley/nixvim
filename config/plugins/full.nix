@@ -104,13 +104,19 @@
         tflint.cmd = lib.getExe pkgs.tflint;
         nix.parser = lib.nixvim.mkRaw ''
           require('lint.parser').from_pattern(
-          '^(%w+): ([^\n]+)%s+at .+:(%d+):(%d+).*',
-          { 'severity', 'message', 'lnum', 'col' },
-          { error = vim.diagnostic.severity.ERROR },
-          {
-            ['source'] = 'nix',
-            ['severity'] = vim.diagnostic.severity.WARN,
-          })
+            '^([^\n]+).*at.+:(%d+):(%d+):(.*)',
+            { 'message', 'lnum', 'col', 'code' },
+            {
+              ['error'] = vim.diagnostic.severity.ERROR,
+              ['warning'] = vim.diagnostic.severity.WARN,
+              ['information'] = vim.diagnostic.severity.INFO,
+              ['hint'] = vim.diagnostic.severity.HINT,
+            },
+            {
+              ['source'] = 'nix',
+              ['severity'] = vim.diagnostic.severity.ERROR,
+            }
+          )
         '';
       };
       lintersByFt = {
