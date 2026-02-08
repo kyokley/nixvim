@@ -1,5 +1,14 @@
 {
   plugins = {
+    lspconfig = {
+      enable = true;
+      autoLoad = true;
+    };
+    lsp-format.enable = true;
+    lsp-lines = {
+      enable = true;
+      autoLoad = true;
+    };
     lsp = {
       enable = true;
       servers = {
@@ -10,6 +19,11 @@
         lua_ls.enable = true;
         ruff.enable = true;
         pylsp.enable = true;
+        statix = {
+          enable = true;
+          autostart = true;
+          filetypes = ["nix"];
+        };
         nil_ls = {
           enable = true;
           extraOptions = {
