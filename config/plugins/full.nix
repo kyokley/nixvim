@@ -104,7 +104,7 @@
         tflint.cmd = lib.getExe pkgs.tflint;
         nix.parser = lib.nixvim.mkRaw ''
           require('lint.parser').from_pattern(
-          '^(%w+): ([^\n]+)%s+at .+:(%d+):(%d+):$',
+          '^(%w+): ([^\n]+)%s+at .+:(%d+):(%d+).*',
           { 'severity', 'message', 'lnum', 'col' },
           { error = vim.diagnostic.severity.ERROR },
           {
