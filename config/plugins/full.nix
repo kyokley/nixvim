@@ -61,7 +61,7 @@
       settings = {
         formatters_by_ft = {
           lua = ["stylua"];
-          python = ["ruff_format" "isort"];
+          python = ["ruff_format" "ruff_organize_imports"];
           nix = ["alejandra"];
           html = ["htmlbeautifier"];
           htmldjango = ["djhtml"];
@@ -87,6 +87,47 @@
           yamlfmt.command = lib.getExe pkgs.yamlfmt;
         };
         default_format_opts.lsp_format = "fallback";
+      };
+    };
+    lint = {
+      enable = true;
+      autoCmd = {
+        event = ["TextChanged" "BufWinEnter" "InsertLeave"];
+        group = "lint_setup";
+      };
+      linters = {
+        ruff.cmd = lib.getExe pkgs.ruff;
+        bandit.cmd = lib.getExe' pkgs.bandit "bandit";
+        hadolint.cmd = lib.getExe pkgs.hadolint;
+        jsonlint.cmd = lib.getExe' pkgs.python313Packages.demjson3 "jsonlint";
+        vale.cmd = lib.getExe pkgs.vale;
+        tflint.cmd = lib.getExe pkgs.tflint;
+        statix.cmd = lib.getExe pkgs.statix;
+      };
+      lintersByFt = {
+        nix = ["statix"];
+        python = [
+          "ruff"
+          "bandit"
+        ];
+        dockerfile = [
+          "hadolint"
+        ];
+        json = [
+          "jsonlint"
+        ];
+        markdown = [
+          "vale"
+        ];
+        rst = [
+          "vale"
+        ];
+        terraform = [
+          "tflint"
+        ];
+        text = [
+          "vale"
+        ];
       };
     };
     diffview = {

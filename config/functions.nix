@@ -24,6 +24,20 @@
     endfunction
 
     function! RaiseExceptionForUnresolvedErrors() abort
+      call s:FindError(s:file_name, '\v^[<=>]{7}( .*|$)', 'Found unresolved conflicts in')
+      call s:FindError(s:file_name, '\s\+$', 'Found trailing whitespace in')
+
+      let l:errors = []
+      let l:loc_list = getloclist(0)
+      for l:error in l:loc_list
+        let l:errors += [l:error.text]
+      endfor
+      if !empty(l:errors)
+        throw join(l:errors, "\n")
+      endif
+    endfunction
+
+    function! LegacyRaiseExceptionForUnresolvedErrors() abort
         let s:file_name = expand('%:t')
 
         " Check for unresolved VCS conflicts
@@ -431,5 +445,16 @@
       tabline = {},
       extensions = {},
     }
+
+    function RaiseExceptionForUnresolvedErrorsLua()
+      local errors = {}
+      local loc_list = vim.fn.getloclist(0)
+      for _, error in ipairs(loc_list) do
+        table.insert(errors, error.text)
+      end
+      if #errors > 0 then
+        error(table.concat(errors, "\n"))
+      end
+    end
   '';
 }

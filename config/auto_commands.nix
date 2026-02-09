@@ -2,6 +2,7 @@
   autoGroups = {
     general_setup.clear = true;
     terminal_setup.clear = true;
+    lint_setup.clear = true;
   };
 
   autoCmd = [
@@ -65,11 +66,12 @@
       command = ''if &buftype == 'terminal' | bdelete! | endif'';
       group = "general_setup";
     }
-    {
-      event = ["BufWritePre"];
-      pattern = "*";
-      command = "call RaiseExceptionForUnresolvedErrors()";
-    }
+    # TODO: Need to figure out how to filter the errors to fail for
+    # {
+    #   event = ["BufWritePre"];
+    #   pattern = "*";
+    #   command = "call RaiseExceptionForUnresolvedErrors()";
+    # }
     {
       event = ["FileType"];
       pattern = ["vista" "vista_kind"];
