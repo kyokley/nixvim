@@ -66,12 +66,12 @@
       command = ''if &buftype == 'terminal' | bdelete! | endif'';
       group = "general_setup";
     }
-    # TODO: Need to figure out how to filter the errors to fail for
-    # {
-    #   event = ["BufWritePre"];
-    #   pattern = "*";
-    #   command = "call RaiseExceptionForUnresolvedErrors()";
-    # }
+    {
+      event = ["BufWritePre"];
+      pattern = "*";
+      command = "call RaiseExceptionForUnresolvedErrors()";
+      group = "lint_setup";
+    }
     {
       event = ["FileType"];
       pattern = ["vista" "vista_kind"];

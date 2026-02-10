@@ -24,13 +24,53 @@
     endfunction
 
     function! RaiseExceptionForUnresolvedErrors() abort
+      let s:file_name = expand('%:t')
       call s:FindError(s:file_name, '\v^[<=>]{7}( .*|$)', 'Found unresolved conflicts in')
       call s:FindError(s:file_name, '\s\+$', 'Found trailing whitespace in')
 
       let l:errors = []
       let l:loc_list = getloclist(0)
       for l:error in l:loc_list
-        let l:errors += [l:error.text]
+        if &filetype == 'python'
+          let error_strs = ['undefined name',
+                            \ 'unexpected indent',
+                            \ 'expected an indented block',
+                            \ 'invalid syntax',
+                            \ 'invalid-syntax',
+                            \ 'invalid assignment',
+                            \ 'unindent does not match any outer indentation level',
+                            \ 'EOL while scanning string literal',
+                            \ 'redefinition of unused',
+                            \ 'list comprehension redefines',
+                            \ 'shadowed by loop variable',
+                            \ 'syntax error',
+                            \ 'referenced before assignment',
+                            \ 'duplicate argument',
+                            \ 'repeated with different values',
+                            \ 'imports must occur at the beginning of the file',
+                            \ 'outside function',
+                            \ 'not properly in loop',
+                            \ 'outside loop',
+                            \ 'two starred expressions in assignment',
+                            \ 'too many expressions in star-unpacking assignment',
+                            \ 'assertion is always true',
+                            \ 'trailing comma not allowed without surrounding parentheses',
+                            \ 'keyword argument repeated',
+                            \ 'problem decoding source',
+                            \ 'EOF in multi-line statement',
+                            \ 'simple statements must be separated',
+                            \ 'unexpected EOF']
+          for error_str in error_strs
+            call system('rg -i "' . error_str . '"', l:error.text)
+            if v:shell_error == 0
+              throw l:error.text . ' |  ' . s:file_name . ':' . l:error.lnum
+            endif
+          endfor
+        else
+          if l:error.type == 'E'
+            let l:errors += [l:error.text]
+          endif
+        endif
       endfor
       if !empty(l:errors)
         throw join(l:errors, "\n")
