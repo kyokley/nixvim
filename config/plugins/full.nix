@@ -97,7 +97,17 @@
       };
       linters = {
         ruff.cmd = lib.getExe pkgs.ruff;
-        bandit.cmd = lib.getExe' pkgs.bandit "bandit";
+        bandit = {
+          cmd = lib.getExe' pkgs.bandit "bandit";
+          args = [
+            "-f"
+            "custom"
+            "--msg-template"
+            "{line}:{col}:{severity}:{test_id} {msg}"
+            "-x"
+            ".svn,CVS,.bzr,.hg,.git,__pycache__,.tox,.eggs,*.egg,*/test_*.py"
+          ];
+        };
         hadolint.cmd = lib.getExe pkgs.hadolint;
         jsonlint.cmd = lib.getExe' pkgs.python313Packages.demjson3 "jsonlint";
         vale.cmd = lib.getExe pkgs.vale;
