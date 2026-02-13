@@ -13,6 +13,9 @@
     ];
 
   plugins = {
+    fidget = {
+      enable = true;
+    };
     numbertoggle.enable = true;
     colorizer.enable = true;
     treesitter = {
@@ -110,7 +113,6 @@
         };
         hadolint.cmd = lib.getExe pkgs.hadolint;
         jsonlint.cmd = lib.getExe' pkgs.python313Packages.demjson3 "jsonlint";
-        vale.cmd = lib.getExe pkgs.vale;
         tflint.cmd = lib.getExe pkgs.tflint;
         statix.cmd = lib.getExe pkgs.statix;
       };
@@ -127,7 +129,6 @@
           "jsonlint"
         ];
         markdown = [
-          "vale"
         ];
         rst = [
           "vale"
@@ -136,7 +137,8 @@
           "tflint"
         ];
         text = [
-          "vale"
+        ];
+        yaml = [
         ];
       };
     };
