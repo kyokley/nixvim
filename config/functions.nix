@@ -31,6 +31,10 @@
       let l:errors = []
       let l:loc_list = getloclist(0)
       for l:error in l:loc_list
+        if l:error.type != 'E'
+          continue
+        endif
+
         if &filetype == 'python'
           let error_strs = ['undefined name',
                             \ 'unexpected indent',
@@ -63,13 +67,11 @@
           for error_str in error_strs
             call system('rg -i "' . error_str . '"', l:error.text)
             if v:shell_error == 0
-              throw l:error.text . ' |  ' . s:file_name . ':' . l:error.lnum
+              throw l:error.text . ' | ' . s:file_name . ':' . l:error.lnum
             endif
           endfor
         else
-          if l:error.type == 'E'
-            let l:errors += [l:error.text]
-          endif
+          let l:errors += [l:error.text]
         endif
       endfor
       if !empty(l:errors)
