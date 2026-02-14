@@ -110,7 +110,6 @@
         };
         hadolint.cmd = lib.getExe pkgs.hadolint;
         jsonlint.cmd = lib.getExe' pkgs.python313Packages.demjson3 "jsonlint";
-        vale.cmd = lib.getExe pkgs.vale;
         tflint.cmd = lib.getExe pkgs.tflint;
         statix.cmd = lib.getExe pkgs.statix;
       };
@@ -126,17 +125,8 @@
         json = [
           "jsonlint"
         ];
-        markdown = [
-          "vale"
-        ];
-        rst = [
-          "vale"
-        ];
         terraform = [
           "tflint"
-        ];
-        text = [
-          "vale"
         ];
       };
     };
