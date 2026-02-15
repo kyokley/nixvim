@@ -46,7 +46,12 @@
 
         nvimWithoutAider = minimalNvim.extend {imports = [./config/plugins/full.nix];};
 
-        nvim = nvimWithoutAider.extend {imports = [./config/plugins/aider.nix];};
+        nvim = nvimWithoutAider.extend {
+          imports = [
+            ./config/plugins/aider.nix
+            ./config/plugins/copilot.nix
+          ];
+        };
 
         dosNvim = nvim.extend {imports = [./dos.nix];};
 
@@ -73,6 +78,10 @@
             buildInputs = [nvim];
           };
       in {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
         checks = {
           # Run `nix flake check .` to verify that your config is not broken
           default = nixvimLib.check.mkTestDerivationFromNvim {

@@ -5,7 +5,6 @@
 
   plugins = {
     snacks.enable = true;
-    copilot-vim.enable = true;
   };
 
   extraPlugins = [
