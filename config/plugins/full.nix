@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./minimal.nix
+    ./opencode.nix
   ];
 
   extraPython3Packages = p:
