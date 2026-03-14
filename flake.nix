@@ -57,7 +57,6 @@
         devShell = let
           nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim {
             plugins = {
-              # snacks.enable = true;
             };
             extraPlugins = [
             ];
