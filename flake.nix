@@ -48,7 +48,6 @@
 
         nvim = nvimWithoutAider.extend {
           imports = [
-            ./config/plugins/aider.nix
             ./config/plugins/copilot.nix
           ];
         };
@@ -61,16 +60,6 @@
               # snacks.enable = true;
             };
             extraPlugins = [
-              # (pkgs.vimUtils.buildVimPlugin {
-              #   name = "nvim-aider";
-              #   src = pkgs.fetchFromGitHub {
-              #     owner = "GeorgesAlkhouri";
-              #     repo = "nvim-aider";
-              #     rev = "main";
-              #     hash = "sha256-LHSDfn9I+Ff83u8DZlom7fgZNwqSZ1h72y6NJq0eKTw=";
-              #   };
-              #   doCheck = false;
-              # })
             ];
           };
         in
