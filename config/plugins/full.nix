@@ -244,6 +244,18 @@
         '';
       };
     };
+    snacks = {
+      enable = true;
+      settings = {
+        bigfile.enable = true;
+        animate.enable = true;
+        indent.enable = true;
+        scroll.enable = true;
+        terminal.enable = true;
+        input.enable = true;
+        picker.enable = true;
+      };
+    };
   };
 
   extraPlugins = with pkgs.vimPlugins; [
@@ -253,6 +265,7 @@
     vim-exchange
     vim-rooter
     conform-nvim
+    opencode-nvim
   ];
 
   extraConfigLua = ''
