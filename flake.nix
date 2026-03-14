@@ -6,7 +6,6 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     flake-parts = {
@@ -44,9 +43,9 @@
         };
         minimalNvim = nixvim'.makeNixvimWithModule minimalNixvimModule;
 
-        nvimWithoutAider = minimalNvim.extend {imports = [./config/plugins/full.nix];};
+        nvimWithoutCopilot = minimalNvim.extend {imports = [./config/plugins/full.nix];};
 
-        nvim = nvimWithoutAider.extend {
+        nvim = nvimWithoutCopilot.extend {
           imports = [
             ./config/plugins/copilot.nix
           ];
@@ -63,7 +62,7 @@
           };
         in
           pkgs.mkShell {
-            buildInputs = [nvim];
+            buildInputs = [nvim pkgs.lsof];
           };
       in {
         _module.args.pkgs = import inputs.nixpkgs {
@@ -89,7 +88,7 @@
         packages = {
           # Lets you run `nix run .` to start nixvim
           default = nvim;
-          withoutAider = nvimWithoutAider;
+          withoutCopilot = nvimWithoutCopilot;
           minimal = minimalNvim;
           dos = dosNvim;
           docker-image = pkgs.dockerTools.buildImage {
