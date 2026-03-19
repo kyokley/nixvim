@@ -108,7 +108,7 @@
       group = "terminal_setup";
     }
     {
-      event = ["TermOpen" "BufWinEnter" "WinEnter"];
+      event = ["BufWinEnter" "WinEnter"];
       pattern = "term://*";
       command = ''startinsert'';
       group = "terminal_setup";
