@@ -34,7 +34,6 @@
         nixvimLib = nixvim.lib.${system};
         nixvim' = nixvim.legacyPackages.${system};
         minimalNixvimModule = {
-          inherit pkgs;
           module = ./minimal.nix;
           # You can use `extraSpecialArgs` to pass additional arguments to your module files
           extraSpecialArgs = {

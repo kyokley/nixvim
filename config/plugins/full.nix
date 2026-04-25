@@ -13,7 +13,10 @@
     ];
 
   plugins = {
-    numbertoggle.enable = true;
+    numbertoggle = {
+      enable = true;
+      package = pkgs.vimPlugins.vim-numbertoggle;
+    };
     colorizer.enable = true;
     treesitter = {
       enable = true;
@@ -94,7 +97,7 @@
             stdin = true;
             args = ["-"];
           };
-          prettier.command = lib.getExe pkgs.nodePackages.prettier;
+          prettier.command = lib.getExe pkgs.prettier;
           shfmt.command = lib.getExe pkgs.shfmt;
           yamlfmt.command = lib.getExe pkgs.yamlfmt;
         };
