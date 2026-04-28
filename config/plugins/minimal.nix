@@ -25,8 +25,8 @@
     };
     illuminate.enable = true;
     alpha = {
-      enable = true;
-      theme = "startify";
+      # enable = true;
+      # theme = "startify";
     };
 
     gitsigns = {

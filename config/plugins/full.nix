@@ -2,7 +2,18 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  milli-nvim = pkgs.vimUtils.buildVimPlugin {
+    pname = "milli.nvim";
+    version = "2026-04-27";
+    src = pkgs.fetchFromGitHub {
+      owner = "Amansingh-afk";
+      repo = "milli.nvim";
+      rev = "7a71269b97af6ac29351d8340bd115e133195234";
+      hash = "sha256-OpJ+JPCBtttTeVthQWmXXTSwYlQM4nBXTI0lSA6KmHQ=";
+    };
+  };
+in {
   imports = [
     ./minimal.nix
   ];
@@ -281,6 +292,7 @@
     vim-exchange
     vim-rooter
     conform-nvim
+    milli-nvim
   ];
 
   extraConfigLua = ''
@@ -329,6 +341,11 @@
         }
       }
     }
+
+    require("milli").alpha({
+      splash = "spaceship",
+      loop = true,
+    })
     -- }}}
   '';
 }
