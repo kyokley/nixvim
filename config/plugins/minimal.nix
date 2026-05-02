@@ -24,9 +24,12 @@
       };
     };
     illuminate.enable = true;
-    alpha = {
-      # enable = true;
-      # theme = "startify";
+    # alpha = {
+    #   enable = true;
+    #   theme = "startify";
+    # };
+    dashboard = {
+      enable = true;
     };
 
     gitsigns = {

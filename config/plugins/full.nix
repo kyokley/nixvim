@@ -342,10 +342,8 @@ in {
       }
     }
 
-    require("milli").alpha({
-      splash = "spaceship",
-      loop = true,
-    })
+    vim.opt.termguicolors = true
+    require("milli").dashboard({ splash = "spaceship", loop = false })
     -- }}}
   '';
 }
