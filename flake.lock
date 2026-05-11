@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "copilot-cmp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778467297,
+        "narHash": "sha256-ll9uuDQ9eknpmxX1tEU2hycA1cMI1QwMj/EZZOaFzQs=",
+        "owner": "kyokley",
+        "repo": "copilot-cmp",
+        "rev": "f74fe5df401e1d0cbc2bd1ccbd56d435cd018e61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kyokley",
+        "repo": "copilot-cmp",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -108,6 +124,7 @@
     },
     "root": {
       "inputs": {
+        "copilot-cmp": "copilot-cmp",
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim"

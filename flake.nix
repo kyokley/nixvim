@@ -11,6 +11,11 @@
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
     };
+
+    copilot-cmp = {
+      url = "github:kyokley/copilot-cmp";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -37,6 +42,7 @@
           module = ./minimal.nix;
           # You can use `extraSpecialArgs` to pass additional arguments to your module files
           extraSpecialArgs = {
+            inherit inputs;
             # inherit (inputs) foo;
           };
         };
