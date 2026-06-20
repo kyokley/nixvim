@@ -89,6 +89,7 @@
           stylua.command = lib.getExe pkgs.stylua;
           isort.command = lib.getExe pkgs.isort;
           ruff_format.command = lib.getExe pkgs.ruff;
+          ruff_organize_imports.command = lib.getExe pkgs.ruff;
           alejandra.command = lib.getExe pkgs.alejandra;
           htmlbeautifier.command = lib.getExe pkgs.rubyPackages.htmlbeautifier;
           jq.command = lib.getExe pkgs.jq;
@@ -289,7 +290,7 @@
     vim.g.vista_blank = {0, 0}
     vim.g.vista_top_level_blink = {0, 0}
     vim.g.vista_echo_cursor = 1
-    vim.g.vista_echo_cursor_strategy = 'floating_win'
+    vim.g.vista_echo_cursor_strategy = 'echo'
     vim.g.vista_cursor_delay = 1000
     vim.g.vista_fzf_preview = {}
     -- }}}
