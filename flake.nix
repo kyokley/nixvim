@@ -11,11 +11,6 @@
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
     };
-
-    copilot-cmp = {
-      url = "github:kyokley/copilot-cmp";
-      flake = false;
-    };
   };
 
   outputs = {

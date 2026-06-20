@@ -25,7 +25,8 @@
   # https://devenv.sh/scripts/
   scripts = {
     hello.exec = ''
-      echo Welcome to $GREET
+      echo Welcome to
+      echo $GREET | ${pkgs.figlet}/bin/figlet -f slant | ${pkgs.lolcat}/bin/lolcat
     '';
     build-docker.exec = ''
       docker build -t kyokley/nixvim --network=host .
