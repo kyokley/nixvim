@@ -6,6 +6,7 @@
   imports = [
     ./minimal.nix
     ../lsp.nix
+    ./opencode.nix
   ];
 
   extraPython3Packages = p:
@@ -26,7 +27,7 @@
     telescope.enable = true;
     rainbow-delimiters.enable = true;
     cmp = {
-      enable = false;
+      enable = true;
       autoEnableSources = true;
       settings = {
         sources = [
@@ -34,6 +35,24 @@
           {name = "path";}
           {name = "buffer";}
         ];
+
+        formatting = {
+          format.__raw = ''
+            function(entry, vim_item)
+                local highlights_info = require("colorful-menu").cmp_highlights(entry)
+
+                -- highlight_info is nil means we are missing the ts parser, it's
+                -- better to fallback to use default `vim_item.abbr`. What this plugin
+                -- offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
+                if highlights_info ~= nil then
+                    vim_item.abbr_hl_group = highlights_info.highlights
+                    vim_item.abbr = highlights_info.text
+                end
+
+                return vim_item
+            end
+          '';
+        };
 
         window = {
           completion = {
@@ -77,7 +96,10 @@
       settings = {
         formatters_by_ft = {
           lua = ["stylua"];
-          python = ["ruff_format" "ruff_organize_imports"];
+          python = [
+            "ruff_format"
+            "ruff_organize_imports"
+          ];
           nix = ["alejandra"];
           html = ["htmlbeautifier"];
           htmldjango = ["djhtml"];
@@ -109,7 +131,11 @@
     lint = {
       enable = true;
       autoCmd = {
-        event = ["TextChanged" "BufWinEnter" "InsertLeave"];
+        event = [
+          "TextChanged"
+          "BufWinEnter"
+          "InsertLeave"
+        ];
         group = "lint_setup";
       };
       linters = {
@@ -276,7 +302,7 @@
     };
     colorful-menu.enable = true;
     blink-cmp = {
-      enable = true;
+      enable = false;
       settings = {
         appearance = {
           nerd_font_variant = "normal";
@@ -295,10 +321,17 @@
             auto_show = true;
           };
           menu = {
+            auto_show = true;
             draw = {
-              # columns = [
-              # [ "kind_icon" ]
-              # [ "label" {gap = 1;} ] ];
+              # columns = {
+              #   "kind_icon" = {
+              #     kind = { };
+              #   };
+
+              #   "label" = {
+              #     gap = 1;
+              #   };
+              # };
               components = {
                 label = {
                   text.__raw = ''
@@ -323,9 +356,15 @@
           enabled = true;
         };
         sources = {
-          default = ["lsp" "buffer"];
+          default = [
+            "lsp"
+            "buffer"
+          ];
           per_filetype = {
-            opencode_ask = ["lsp" "buffer"];
+            opencode_ask = [
+              "lsp"
+              "buffer"
+            ];
           };
           cmdline = [];
           providers = {
