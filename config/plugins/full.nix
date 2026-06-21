@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./minimal.nix
+    ../lsp.nix
   ];
 
   extraPython3Packages = p:
