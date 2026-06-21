@@ -7,30 +7,6 @@
 
   autoCmd = [
     {
-      event = ["InsertEnter"];
-      pattern = "*";
-      command = ''if &buftype != 'nofile' | highlight LineNr ctermbg=darkred guibg=darkred | endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["InsertEnter"];
-      pattern = "*";
-      command = ''if &buftype != 'nofile' && &buftype != 'prompt' | highlight CursorLine ctermbg=darkred guibg=darkred | endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["InsertLeave"];
-      pattern = "*";
-      command = ''if &buftype != 'nofile' | highlight LineNr ctermbg=NONE guibg=NONE | endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["InsertLeave"];
-      pattern = "*";
-      command = ''if &buftype != 'nofile' && &buftype != 'prompt' | highlight CursorLine ctermbg=darkblue guibg=darkblue | endif'';
-      group = "general_setup";
-    }
-    {
       event = ["BufReadPost"];
       pattern = "*";
       command = ''if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif'';
@@ -40,18 +16,6 @@
       event = ["BufEnter"];
       pattern = "*";
       command = ''let &titlestring = "nvim " . expand("%:p")'';
-      group = "general_setup";
-    }
-    {
-      event = ["FocusGained" "VimEnter" "WinEnter" "BufWinEnter"];
-      pattern = "*";
-      command = ''setlocal cursorline'';
-      group = "general_setup";
-    }
-    {
-      event = ["FocusLost" "WinLeave"];
-      pattern = "*";
-      command = ''setlocal nocursorline'';
       group = "general_setup";
     }
     {
