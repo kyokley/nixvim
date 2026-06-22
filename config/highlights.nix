@@ -1,12 +1,16 @@
 {
-  colorschemes.catppuccin = {
-    enable = false;
-    settings.flavour = "mocha";
-  };
+  colorschemes = {
+    catppuccin = {
+      enable = false;
+      settings.flavour = "mocha";
+    };
 
-  colorschemes.nightfox = {
-    enable = true;
-    settings.flavor = "carbonfox";
+    nightfox = {
+      enable = false;
+      settings.flavor = "carbonfox";
+    };
+
+    onedark.enable = true;
   };
 
   match = {
