@@ -10,7 +10,7 @@
       enable = true;
       settings.options.globalstatus = false;
     };
-    marks.enable = false;
+    marks.enable = true;
     indent-o-matic = {
       enable = true;
       settings = {
