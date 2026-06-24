@@ -7,7 +7,8 @@
 
     nightfox = {
       enable = false;
-      settings.flavor = "carbonfox";
+      settings.flavor = "terafox";
+      # settings.flavor = "carbonfox";
     };
 
     onedark.enable = true;

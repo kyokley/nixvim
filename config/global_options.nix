@@ -26,7 +26,7 @@
     "splitbelow" = true;
     "listchars" = "trail:_";
     "list" = true;
-    "cursorline" = false;
+    "cursorline" = true;
     "incsearch" = true;
     "hlsearch" = true;
     "timeout" = true;
