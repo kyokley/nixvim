@@ -30,7 +30,6 @@
       autoEnableSources = true;
       settings = {
         sources = [
-          {name = "opencode";}
           {name = "nvim_lsp";}
           {name = "path";}
           {name = "buffer";}
@@ -404,15 +403,6 @@
     vim-exchange
     vim-rooter
     conform-nvim
-    (pkgs.vimUtils.buildVimPlugin {
-      name = "cmp-opencode";
-      src = pkgs.fetchFromGitHub {
-        owner = "aquaticcalf";
-        repo = "opencode-nvim-cmp";
-        rev = "193c24e6ca0505f530a2a51e572c53f7166c0ea0";
-        hash = "sha256-SfMGJHjYt9gCBMtH+ZsEaSwgpXPQ/M3b7qPgQTa8RPQ=";
-      };
-    })
   ];
 
   extraConfigLua = ''
@@ -463,14 +453,5 @@
     }
     -- }}}
 
-    -- {{{ cmp-opencode
-    require('cmp-opencode').setup({
-      host = "127.0.0.1",
-      port = 4096,
-      timeout = 5000,
-      max_suggestions = 10,
-      debounce_ms = 300,
-    })
-    -- }}}
   '';
 }
