@@ -90,7 +90,7 @@
 
         packages = {
           # Lets you run `nix run .` to start nixvim
-          default = nvim;
+          default = nvimWithoutCopilot;
           withoutCopilot = nvimWithoutCopilot;
           minimal = minimalNvim;
           dos = dosNvim;

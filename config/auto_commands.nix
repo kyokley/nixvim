@@ -3,6 +3,7 @@
     general_setup.clear = true;
     terminal_setup.clear = true;
     lint_setup.clear = true;
+    marks_fix_hl.clear = true;
   };
 
   autoCmd = [
@@ -115,6 +116,17 @@
       event = ["FileType"];
       pattern = ["nix"];
       command = "setlocal shiftwidth=2";
+    }
+    {
+      event = ["VimEnter"];
+      group = "marks_fix_hl";
+      callback = {
+        __raw = ''
+          function(args)
+            vim.api.nvim_set_hl(0, 'MarkSignNumHL', {})
+          end
+        '';
+      };
     }
   ];
 }
