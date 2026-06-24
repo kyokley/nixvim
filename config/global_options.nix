@@ -45,5 +45,6 @@
     "formatexpr" = "v:lua.require'conform'.formatexpr()";
     winborder = "rounded";
     showmode = false;
+    cmdheight = 0;
   };
 }
