@@ -6,7 +6,7 @@
       server = {
         start.__raw = ''
           function()
-            require("snacks.terminal").toggle('opencode --port',
+            require("snacks.terminal").toggle('opencode --port 4096',
             { win = { position = "right", enter = false}})
           end
         '';
