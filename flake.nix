@@ -62,7 +62,10 @@
           };
         in
           pkgs.mkShell {
-            buildInputs = [nvim pkgs.lsof];
+            buildInputs = [
+              nvim
+              pkgs.lsof
+            ];
           };
       in {
         _module.args.pkgs = import inputs.nixpkgs {
@@ -87,7 +90,7 @@
 
         packages = {
           # Lets you run `nix run .` to start nixvim
-          default = nvim;
+          default = nvimWithoutCopilot;
           withoutCopilot = nvimWithoutCopilot;
           minimal = minimalNvim;
           dos = dosNvim;

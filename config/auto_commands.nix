@@ -3,33 +3,10 @@
     general_setup.clear = true;
     terminal_setup.clear = true;
     lint_setup.clear = true;
+    marks_fix_hl.clear = true;
   };
 
   autoCmd = [
-    {
-      event = ["InsertEnter"];
-      pattern = "*";
-      command = ''if &buftype != 'nofile' | highlight LineNr ctermbg=darkred guibg=darkred | endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["InsertEnter"];
-      pattern = "*";
-      command = ''if &buftype != 'nofile' && &buftype != 'prompt' | highlight CursorLine ctermbg=darkred guibg=darkred | endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["InsertLeave"];
-      pattern = "*";
-      command = ''if &buftype != 'nofile' | highlight LineNr ctermbg=NONE guibg=NONE | endif'';
-      group = "general_setup";
-    }
-    {
-      event = ["InsertLeave"];
-      pattern = "*";
-      command = ''if &buftype != 'nofile' && &buftype != 'prompt' | highlight CursorLine ctermbg=darkblue guibg=darkblue | endif'';
-      group = "general_setup";
-    }
     {
       event = ["BufReadPost"];
       pattern = "*";
@@ -40,18 +17,6 @@
       event = ["BufEnter"];
       pattern = "*";
       command = ''let &titlestring = "nvim " . expand("%:p")'';
-      group = "general_setup";
-    }
-    {
-      event = ["FocusGained" "VimEnter" "WinEnter" "BufWinEnter"];
-      pattern = "*";
-      command = ''setlocal cursorline'';
-      group = "general_setup";
-    }
-    {
-      event = ["FocusLost" "WinLeave"];
-      pattern = "*";
-      command = ''setlocal nocursorline'';
       group = "general_setup";
     }
     {
@@ -151,6 +116,17 @@
       event = ["FileType"];
       pattern = ["nix"];
       command = "setlocal shiftwidth=2";
+    }
+    {
+      event = ["VimEnter"];
+      group = "marks_fix_hl";
+      callback = {
+        __raw = ''
+          function(args)
+            vim.api.nvim_set_hl(0, 'MarkSignNumHL', {})
+          end
+        '';
+      };
     }
   ];
 }

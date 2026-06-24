@@ -5,6 +5,8 @@
 }: {
   imports = [
     ./minimal.nix
+    ../lsp.nix
+    ./opencode.nix
   ];
 
   extraPython3Packages = p:
@@ -15,7 +17,6 @@
   plugins = {
     numbertoggle = {
       enable = true;
-      package = pkgs.vimPlugins.vim-numbertoggle;
     };
     colorizer.enable = true;
     treesitter = {
@@ -33,6 +34,24 @@
           {name = "path";}
           {name = "buffer";}
         ];
+
+        formatting = {
+          format.__raw = ''
+            function(entry, vim_item)
+                local highlights_info = require("colorful-menu").cmp_highlights(entry)
+
+                -- highlight_info is nil means we are missing the ts parser, it's
+                -- better to fallback to use default `vim_item.abbr`. What this plugin
+                -- offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
+                if highlights_info ~= nil then
+                    vim_item.abbr_hl_group = highlights_info.highlights
+                    vim_item.abbr = highlights_info.text
+                end
+
+                return vim_item
+            end
+          '';
+        };
 
         window = {
           completion = {
@@ -76,7 +95,10 @@
       settings = {
         formatters_by_ft = {
           lua = ["stylua"];
-          python = ["ruff_format" "ruff_organize_imports"];
+          python = [
+            "ruff_format"
+            "ruff_organize_imports"
+          ];
           nix = ["alejandra"];
           html = ["htmlbeautifier"];
           htmldjango = ["djhtml"];
@@ -108,7 +130,11 @@
     lint = {
       enable = true;
       autoCmd = {
-        event = ["TextChanged" "BufWinEnter" "InsertLeave"];
+        event = [
+          "TextChanged"
+          "BufWinEnter"
+          "InsertLeave"
+        ];
         group = "lint_setup";
       };
       linters = {
@@ -273,6 +299,101 @@
         terminal.enable = true;
       };
     };
+    colorful-menu.enable = true;
+    blink-cmp = {
+      enable = false;
+      settings = {
+        appearance = {
+          nerd_font_variant = "normal";
+          use_nvim_cmp_as_default = true;
+        };
+        completion = {
+          accept = {
+            auto_brackets = {
+              enabled = true;
+              semantic_token_resolution = {
+                enabled = false;
+              };
+            };
+          };
+          documentation = {
+            auto_show = true;
+          };
+          menu = {
+            auto_show = true;
+            draw = {
+              # columns = {
+              #   "kind_icon" = {
+              #     kind = { };
+              #   };
+
+              #   "label" = {
+              #     gap = 1;
+              #   };
+              # };
+              components = {
+                label = {
+                  text.__raw = ''
+                    function(ctx)
+                        return require("colorful-menu").blink_components_text(ctx)
+                    end
+                  '';
+                  highlight.__raw = ''
+                    function(ctx)
+                        return require("colorful-menu").blink_components_highlight(ctx)
+                    end
+                  '';
+                };
+              };
+            };
+          };
+        };
+        keymap = {
+          preset = "super-tab";
+        };
+        signature = {
+          enabled = true;
+        };
+        sources = {
+          default = [
+            "lsp"
+            "buffer"
+          ];
+          per_filetype = {
+            opencode_ask = [
+              "lsp"
+              "buffer"
+            ];
+          };
+          cmdline = [];
+          providers = {
+            buffer = {
+              score_offset = -7;
+            };
+            lsp = {
+              fallbacks = [];
+            };
+          };
+        };
+      };
+    };
+
+    modicator = {
+      enable = true;
+      settings = {
+        integration = {
+          lualine = {
+            enabled = true;
+          };
+        };
+        highlights = {
+          defaults = {
+            bold = true;
+            italic = true;
+          };
+        };
+      };
+    };
   };
 
   extraPlugins = with pkgs.vimPlugins; [
@@ -331,5 +452,6 @@
       }
     }
     -- }}}
+
   '';
 }

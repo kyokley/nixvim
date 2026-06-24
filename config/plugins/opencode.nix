@@ -1,12 +1,16 @@
 {pkgs, ...}: {
-  extraPlugins = with pkgs.vimPlugins; [
-    opencode-nvim
-  ];
-
   plugins.opencode = {
     enable = true;
     settings = {
       auto_reload = true;
+      server = {
+        start.__raw = ''
+          function()
+            require("snacks.terminal").toggle('opencode --port',
+            { win = { position = "right", enter = false}})
+          end
+        '';
+      };
     };
   };
 
@@ -15,11 +19,11 @@
       key = "<leader>o";
       action.__raw = ''
         function()
-          require("opencode").toggle()
+          require("opencode").ask("@this: ")
         end
       '';
       mode = ["n" "t"];
-      options.desc = "Toggle Opencode";
+      options.desc = "Ask Opencode";
     }
     {
       mode = ["n" "x"];

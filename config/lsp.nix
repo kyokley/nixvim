@@ -1,10 +1,6 @@
 {
   plugins = {
-    lspconfig = {
-      enable = true;
-      autoLoad = true;
-    };
-    lsp-format.enable = true;
+    lsp-format.enable = false;
     lsp-lines = {
       enable = true;
       autoLoad = true;

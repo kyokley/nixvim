@@ -79,6 +79,7 @@
             local orange = 'orange'
             local blue = "darkblue"
             local green = "green"
+            local white = "white"
 
             local components = {
                 space = { text = ' ' , bg = 'none'},
@@ -95,6 +96,9 @@
                 },
                 index = {
                     text = function(buffer) return buffer.number .. ': ' end,
+                    fg = function(buffer)
+                        return buffer.is_modified and orange or nil
+                        end,
                 },
                 prefix = {
                     text = function(buffer) return buffer.unique_prefix end,
@@ -130,7 +134,7 @@
                         return buffer.is_modified and ' ●' or '  '
                         end,
                     fg = function(buffer)
-                        return buffer.is_modified and "#e5c463" or nil
+                        return buffer.is_modified and orange or nil
                         end,
                     truncation = { priority = 1 },
                 },
@@ -169,11 +173,12 @@
                 },
             }
 
+
         require('cokeline').setup({
                 default_hl = {
                 fg = function(buffer)
                 -- return buffer.is_focused and get_hex('Normal', 'fg') or 'none'
-                return buffer.is_focused and 'none'
+                return buffer.is_focused and white
                 end,
                 bg = function(buffer)
                 return buffer.is_focused and blue or 'none'

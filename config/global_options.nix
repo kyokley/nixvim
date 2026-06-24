@@ -43,5 +43,8 @@
     "foldlevel" = 99; # Need high value for nvim-ufo
     "title" = true;
     "formatexpr" = "v:lua.require'conform'.formatexpr()";
+    winborder = "rounded";
+    showmode = false;
+    cmdheight = 0;
   };
 }
