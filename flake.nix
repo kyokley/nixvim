@@ -48,13 +48,14 @@
           mkNixVimConfig = flavor:
             inputs.nixvim.lib.evalNixvim {
               inherit system;
-              modules = [
-                self.nixvimModules.common
-                self.nixvimModules.${flavor}
+              modules = with self.nixvimModules; [
+                common
+                "${flavor}"
               ];
             };
         in {
           default = mkNixVimConfig "default";
+          minimal = mkNixVimConfig "minimal";
         };
       };
     };
