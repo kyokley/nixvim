@@ -11,14 +11,21 @@
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
     };
+    import-tree.url = "github:vic/import-tree";
   };
 
   outputs = {
+    self,
     nixvim,
     flake-parts,
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        (inputs.import-tree ./modules)
+        inputs.nixvim.flakeModules.default
+      ];
+
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -26,88 +33,29 @@
         "aarch64-darwin"
       ];
 
-      perSystem = {
-        pkgs,
-        system,
-        ...
-      }: let
-        nixvimLib = nixvim.lib.${system};
-        nixvim' = nixvim.legacyPackages.${system};
-        minimalNixvimModule = {
-          module = ./minimal.nix;
-          # You can use `extraSpecialArgs` to pass additional arguments to your module files
-          extraSpecialArgs = {
-            inherit inputs;
-            # inherit (inputs) foo;
-          };
-        };
-        minimalNvim = nixvim'.makeNixvimWithModule minimalNixvimModule;
+      nixvim = {
+        # Automatically install corresponding packages for each nixvimConfiguration
+        # Lets you run `nix run .#<name>`, or simply `nix run` if you have a default
+        packages.enable = true;
+        # Automatically install checks for each nixvimConfiguration
+        # Run `nix flake check` to verify that your config is not broken
+        checks.enable = true;
+      };
 
-        nvimWithoutCopilot = minimalNvim.extend {imports = [./config/plugins/full.nix];};
-
-        nvim = nvimWithoutCopilot.extend {
-          imports = [
-            ./config/plugins/copilot.nix
-          ];
-        };
-
-        dosNvim = nvim.extend {imports = [./dos.nix];};
-
-        devShell = let
-          nvim = nixvim.legacyPackages.x86_64-linux.makeNixvim {
-            plugins = {
+      perSystem = {system, ...}: {
+        # You can define actual Nixvim configurations here
+        nixvimConfigurations = let
+          mkNixVimConfig = flavor:
+            inputs.nixvim.lib.evalNixvim {
+              inherit system;
+              modules = [
+                self.nixvimModules.common
+                self.nixvimModules.${flavor}
+              ];
             };
-            extraPlugins = [
-            ];
-          };
-        in
-          pkgs.mkShell {
-            buildInputs = [
-              nvim
-              pkgs.lsof
-            ];
-          };
-      in {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
+        in {
+          default = mkNixVimConfig "default";
         };
-        checks = {
-          # Run `nix flake check .` to verify that your config is not broken
-          default = nixvimLib.check.mkTestDerivationFromNvim {
-            inherit nvim;
-            name = "default test";
-          };
-          minimal = nixvimLib.check.mkTestDerivationFromNvim {
-            nvim = minimalNvim;
-            name = "minimal test";
-          };
-          dos = nixvimLib.check.mkTestDerivationFromNvim {
-            nvim = dosNvim;
-            name = "dos test";
-          };
-        };
-
-        packages = {
-          # Lets you run `nix run .` to start nixvim
-          default = nvimWithoutCopilot;
-          withoutCopilot = nvimWithoutCopilot;
-          minimal = minimalNvim;
-          dos = dosNvim;
-          docker-image = pkgs.dockerTools.buildImage {
-            name = "kyokley/nixvim";
-            tag = "latest";
-            copyToRoot = pkgs.buildEnv {
-              name = "image-root";
-              paths = [nvim];
-              pathsToLink = ["/bin"];
-            };
-            config = {
-              Entrypoint = ["/bin/vim"];
-            };
-          };
-        };
-        devShells.default = devShell;
       };
     };
 }
