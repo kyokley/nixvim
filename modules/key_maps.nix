@@ -144,16 +144,6 @@
         mode = ["n"];
       }
       {
-        key = "<F4>";
-        action = ":Vista!!<CR>";
-        mode = ["n"];
-      }
-      {
-        key = "<F5>";
-        action = ":MundoToggle<CR>";
-        mode = ["n"];
-      }
-      {
         key = "<F12>";
         action = ":py3 SetBreakpoint()<CR>";
         mode = ["n"];
