@@ -45,26 +45,18 @@
       perSystem = {system, ...}: {
         # You can define actual Nixvim configurations here
         nixvimConfigurations = let
-          mkNixVimConfig = {
-            flavor,
-            extraModules ? [self.nixvimModules.minimal],
-          }:
+          mkNixVimConfig = flavor:
             inputs.nixvim.lib.evalNixvim {
               inherit system;
-              modules = with self.nixvimModules;
-                [
-                  common
-                  self.nixvimModules.${flavor}
-                ]
-                ++ extraModules;
+              modules = [
+                self.nixvimModules.minimal
+                self.nixvimModules.${flavor}
+              ];
             };
         in {
-          full = mkNixVimConfig {flavor = "full";};
-          minimal = mkNixVimConfig {
-            flavor = "minimal";
-            extraModules = [];
-          };
-          dos = mkNixVimConfig {flavor = "dos";};
+          full = mkNixVimConfig "full";
+          minimal = mkNixVimConfig "minimal";
+          dos = mkNixVimConfig "dos";
           default = self.nixvimConfigurations.${system}.full;
         };
       };

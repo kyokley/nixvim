@@ -1,5 +1,5 @@
 {
-  flake.nixvimModules.common = {config, ...}: {
+  flake.nixvimModules.minimal = {config, ...}: {
     autoGroups = {
       general_setup.clear = true;
       terminal_setup.clear = true;

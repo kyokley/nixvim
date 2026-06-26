@@ -1,5 +1,5 @@
 {
-  flake.nixvimModules.common = {
+  flake.nixvimModules.minimal = {
     colorschemes = {
       catppuccin = {
         enable = false;

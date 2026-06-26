@@ -1,5 +1,5 @@
 {
-  flake.nixvimModules.common = {
+  flake.nixvimModules.minimal = {
     keymaps = [
       {
         key = "<leader>c";

@@ -1,5 +1,5 @@
 {
-  flake.nixvimModules.common = {pkgs, ...}: {
+  flake.nixvimModules.minimal = {pkgs, ...}: {
     extraConfigVim = ''
       " Error Functions {{{
       function! s:FindError(file_name, bad_str, error_msg, ...) abort

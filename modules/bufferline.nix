@@ -1,5 +1,5 @@
 {
-  flake.nixvimModules.common = {
+  flake.nixvimModules.minimal = {
     plugins.bufferline = {
       enable = true;
       settings.options = {
