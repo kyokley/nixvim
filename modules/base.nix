@@ -30,8 +30,6 @@
       extraPlugins = with pkgs.vimPlugins; [
         fzf-vim # Needed to use vim version to work with vista-vim
         vim-exchange
-        vim-rooter
-        conform-nvim
       ];
     };
   };

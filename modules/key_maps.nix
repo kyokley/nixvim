@@ -197,24 +197,6 @@
         mode = ["n" "x"];
       }
       {
-        key = "<leader>8";
-        action.__raw = ''
-          function()
-              local telescope = require('telescope.builtin')
-              telescope.grep_string({theme = 'dropdown', cwd=vim.fn['FindRootDirectory']() ~= "" and vim.fn['FindRootDirectory']() or vim.fn.getcwd()})
-          end
-        '';
-      }
-      {
-        key = "<leader>a";
-        action.__raw = ''
-          function()
-              local telescope = require('telescope.builtin')
-              telescope.live_grep({theme = 'dropdown', cwd=vim.fn['FindRootDirectory']() ~= "" and vim.fn['FindRootDirectory']() or vim.fn.getcwd()})
-          end
-        '';
-      }
-      {
         key = "<leader>to";
         action.__raw = ''
           function()
