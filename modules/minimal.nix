@@ -4,6 +4,8 @@
     lib,
     ...
   }: {
+    vimAlias = true;
+
     plugins = {
       web-devicons.enable = true;
       vim-bbye.enable = true;

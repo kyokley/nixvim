@@ -56,6 +56,8 @@
         in {
           full = mkNixVimConfig "full";
           minimal = mkNixVimConfig "minimal";
+          dos = mkNixVimConfig "dos";
+          default = self.nixvimConfigurations.${system}.full;
         };
       };
     };
