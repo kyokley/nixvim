@@ -19,7 +19,7 @@
       };
     };
 
-    extraConfigLua = ''
+    extraConfigLuaPost = ''
       -- Force modicator to re-apply highlights with the now-correct lualine theme.
       -- Modicator's use_lualine_mode_highlights skips highlights that already exist,
       -- and they were already created from the default lualine theme during plugin setup.
