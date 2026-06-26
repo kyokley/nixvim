@@ -50,11 +50,11 @@
               inherit system;
               modules = with self.nixvimModules; [
                 common
-                "${flavor}"
+                self.nixvimModules.${flavor}
               ];
             };
         in {
-          default = mkNixVimConfig "default";
+          full = mkNixVimConfig "full";
           minimal = mkNixVimConfig "minimal";
         };
       };
