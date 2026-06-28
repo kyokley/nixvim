@@ -16,7 +16,6 @@
 
   outputs = {
     self,
-    nixvim,
     flake-parts,
     ...
   } @ inputs:
@@ -53,11 +52,22 @@
                 self.nixvimModules.${flavor}
               ];
             };
+          mkNixVimSystemFlakeConfig = flavor: flakeDir:
+            inputs.nixvim.lib.evalNixvim {
+              inherit system;
+              modules = [
+                self.nixvimModules.minimal
+                self.nixvimModules.${flavor}
+                self.nixvimModules.${flakeDir}
+              ];
+            };
         in {
           full = mkNixVimConfig "full";
           minimal = mkNixVimConfig "minimal";
           dos = mkNixVimConfig "dos";
           default = self.nixvimConfigurations.${system}.full;
+
+          "yokley@dioxygen" = mkNixVimSystemFlakeConfig "full" "yokley@dioxygen";
         };
       };
     };
