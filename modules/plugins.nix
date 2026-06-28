@@ -41,6 +41,7 @@
           autoClose = true;
         };
 
+        lsp-progress.enable = true;
         treesitter.enable = lib.mkDefault false;
         cmp.enable = lib.mkDefault false;
       };
