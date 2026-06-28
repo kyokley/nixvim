@@ -35,7 +35,8 @@
                   command = ["alejandra"];
                 };
                 options = {
-                  nixos.expr = ''(builtins.getFlake "git+https://github.com/kyokley/dotfiles").homeConfigurations.mars.options'';
+                  nixos.expr = ''(builtins.getFlake "git+https://github.com/kyokley/dotfiles").nixosConfigurations.mars.options'';
+                  home-manager.expr = ''(builtins.getFlake "git+https://github.com/kyokley/dotfiles").homeConfigurations.mars.options'';
                 };
               };
             };
