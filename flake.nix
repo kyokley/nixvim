@@ -52,13 +52,13 @@
                 self.nixvimModules.${flavor}
               ];
             };
-          mkNixVimSystemFlakeConfig = flavor: flakeDir:
+          mkNixVimSystemFlakeConfig = flavor: flakeRef:
             inputs.nixvim.lib.evalNixvim {
               inherit system;
               modules = [
                 self.nixvimModules.minimal
                 self.nixvimModules.${flavor}
-                self.nixvimModules.${flakeDir}
+                self.nixvimModules.${flakeRef}
               ];
             };
         in {
