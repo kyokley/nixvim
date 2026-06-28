@@ -27,6 +27,16 @@
               autoArchive = true;
             };
           };
+          nixd = {
+            enable = true;
+            extraOptions = {
+              autoArchive = true;
+            };
+            cmd = [
+              "devenv"
+              "lsp"
+            ];
+          };
         };
       };
     };
