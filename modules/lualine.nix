@@ -73,7 +73,10 @@
           lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 }},
           lualine_b = { 'filename', 'branch' },
           lualine_c = {
-            '%=', --[[ add your center compoentnts here in place of this comment ]]
+            function()
+              -- invoke `progress` here.
+              return require('lsp-progress').progress()
+            end
           },
           lualine_x = {conflict, whitespace},
           lualine_y = { 'filetype', 'fileformat', 'progress' },
