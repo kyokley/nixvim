@@ -1,6 +1,6 @@
 {
   flake.nixvimModules = {
-    full = {
+    full = {pkgs, ...}: {
       plugins = {
         lsp-format.enable = false;
         lsp-lines = {
@@ -35,8 +35,8 @@
                   command = ["alejandra"];
                 };
                 options = {
-                  nixos.expr = ''(builtins.getFlake "git+https://github.com/kyokley/dotfiles").nixosConfigurations.mars.options'';
-                  home-manager.expr = ''(builtins.getFlake "git+https://github.com/kyokley/dotfiles").homeConfigurations."yokley@mars".options'';
+                  nixos.expr = pkgs.lib.mkDefault ''(builtins.getFlake "git+https://github.com/kyokley/dotfiles").nixosConfigurations.mars.options'';
+                  home-manager.expr = pkgs.lib.mkDefault ''(builtins.getFlake "git+https://github.com/kyokley/dotfiles").homeConfigurations."yokley@mars".options'';
                 };
               };
             };
