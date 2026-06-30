@@ -3,6 +3,7 @@
     full = {pkgs, ...}: {
       plugins = {
         lsp-format.enable = false;
+        lsp-format-modifications.enable = true;
         lsp-lines = {
           enable = true;
           autoLoad = true;
