@@ -1,5 +1,5 @@
 {
-  flake.nixvimModules.full = {pkgs, ...}: {
+  flake.nixvimModules.full = {
     plugins.opencode = {
       enable = true;
       settings = {
