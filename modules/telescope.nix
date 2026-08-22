@@ -58,15 +58,26 @@
           key = "<leader>a";
           action.__raw = ''
             function()
-                local telescope = require('telescope.builtin')
-                telescope.live_grep({theme = 'dropdown', cwd=vim.fn['FindRootDirectory']() ~= "" and vim.fn['FindRootDirectory']() or vim.fn.getcwd()})
+                local telescope = require('telescope')
+                local root = vim.fn['FindRootDirectory']() ~= "" and vim.fn['FindRootDirectory']() or vim.fn.getcwd()
+                telescope.extensions.live_grep_args.live_grep_args({theme = 'dropdown', cwd=root})
             end
           '';
         }
       ];
 
       plugins = {
-        telescope.enable = true;
+        telescope = {
+          enable = true;
+          extensions = {
+            live-grep-args = {
+              enable = true;
+              settings = {
+                auto_quoting = true;
+              };
+            };
+          };
+        };
       };
     };
   };
