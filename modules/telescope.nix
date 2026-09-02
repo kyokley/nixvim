@@ -8,10 +8,24 @@
             # <leader>8 is mapped in key_maps.nix
             # <leader>a is mapped in key_maps.nix
             "<C-p>" = "git_files";
-            "<leader>a" = "live_grep";
           };
         };
       };
+
+      keymaps = [
+        {
+          key = "<leader>a";
+          action.__raw = ''
+            function()
+                local root = vim.fn.systemlist({"git", "-C", vim.fn.getcwd(), "rev-parse", "--show-toplevel"})[1]
+                if vim.v.shell_error ~= 0 or not root or root == "" then
+                  root = vim.fn.getcwd()
+                end
+                require('telescope.builtin').live_grep({cwd=root})
+            end
+          '';
+        }
+      ];
     };
 
     full = {
@@ -59,7 +73,10 @@
           action.__raw = ''
             function()
                 local telescope = require('telescope')
-                local root = vim.fn['FindRootDirectory']() ~= "" and vim.fn['FindRootDirectory']() or vim.fn.getcwd()
+                local root = vim.fn.systemlist({"git", "-C", vim.fn.getcwd(), "rev-parse", "--show-toplevel"})[1]
+                if vim.v.shell_error ~= 0 or not root or root == "" then
+                  root = vim.fn.getcwd()
+                end
                 telescope.extensions.live_grep_args.live_grep_args({theme = 'dropdown', cwd=root})
             end
           '';
