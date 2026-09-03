@@ -41,7 +41,12 @@
         checks.enable = true;
       };
 
-      perSystem = {system, ...}: {
+      perSystem = {
+        system,
+        pkgs,
+        self',
+        ...
+      }: {
         # You can define actual Nixvim configurations here
         nixvimConfigurations = let
           mkNixVimConfig = flavor:
@@ -52,22 +57,26 @@
                 self.nixvimModules.${flavor}
               ];
             };
-          mkNixVimSystemFlakeConfig = flavor: flakeRef:
-            inputs.nixvim.lib.evalNixvim {
-              inherit system;
-              modules = [
-                self.nixvimModules.minimal
-                self.nixvimModules.${flavor}
-                self.nixvimModules.${flakeRef}
-              ];
-            };
         in {
           full = mkNixVimConfig "full";
           minimal = mkNixVimConfig "minimal";
           dos = mkNixVimConfig "dos";
           default = self.nixvimConfigurations.${system}.full;
+        };
 
-          "yokley@dioxygen" = mkNixVimSystemFlakeConfig "full" "yokley@dioxygen";
+        packages = {
+          docker-image = pkgs.dockerTools.buildImage {
+            name = "kyokley/nvim";
+            tag = "latest";
+            copyToRoot = pkgs.buildEnv {
+              name = "app-root";
+              paths = [self'.packages.minimal];
+              pathsToLink = ["/bin"];
+            };
+            config = {
+              Entrypoint = ["/bin/nvim"];
+            };
+          };
         };
       };
     };
