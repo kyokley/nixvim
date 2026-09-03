@@ -66,7 +66,7 @@
 
         packages = {
           docker-image = pkgs.dockerTools.buildImage {
-            name = "kyokley/nvim";
+            name = "kyokley/nixvim";
             tag = "latest";
             copyToRoot = pkgs.buildEnv {
               name = "app-root";
