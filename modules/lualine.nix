@@ -94,6 +94,8 @@
                 local warning, display = result.stdout:match('^([01])\n(.-)\n?$')
                 if warning then
                   entry.warning = warning == "1"
+                  -- Strip the description prefix while preserving the change ID.
+                  display = display:gsub('^(%S+ )%S+: ', '%1')
                   entry.text = vim.trim(display:gsub('[%c]', ' ')):gsub('%%', '%%%%')
                 else
                   entry.text, entry.warning = "", false
