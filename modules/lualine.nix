@@ -131,6 +131,7 @@
             'filename',
             {
               jj_status,
+              separator = { right = '' },
               color = function()
                 local _, warning = jj_status()
                 return { fg = colors.black, bg = warning and colors.yellow or colors.green }
