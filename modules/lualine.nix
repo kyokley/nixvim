@@ -17,6 +17,8 @@
         black  = '#080808',
         white  = '#c6c6c6',
         red    = '#ff5189',
+        yellow = '#e0af68',
+        green  = '#9ece6a',
         violet = '#d183e8',
         grey   = '#303030',
       }
@@ -63,6 +65,60 @@
           color = { bg = colors.red, fg = colors.black, gui = "italic,bold" },
       }
 
+      local jj_cache = {}
+      local function jj_status()
+        if vim.fn.executable('jj') ~= 1 then return "", false end
+
+        local buf = vim.api.nvim_get_current_buf()
+        local name = vim.api.nvim_buf_get_name(buf)
+        local start = name ~= "" and vim.bo[buf].buftype == ""
+          and vim.fs.abspath(name) or vim.fn.getcwd()
+        local root = vim.fs.root(start, '.jj')
+        if not root then return "", false end
+
+        local entry = jj_cache[root] or {
+          text = "", warning = false, pending = false, time = -math.huge,
+        }
+        jj_cache[root] = entry
+        local now = vim.uv.now()
+        if not entry.pending and now - entry.time >= 5000 then
+          entry.pending, entry.time = true, now
+          local ok = pcall(vim.system, {
+            'jj', '--no-pager', '--color', 'never', 'log',
+            '-r', '@', '--no-graph', '-T',
+            'if(!empty && !description, "1", "0") ++ "\\n" ++ change_id.short(4) ++ if(description, " " ++ description.first_line(), "")',
+          }, { cwd = root, text = true, timeout = 2000 }, function(result)
+            vim.schedule(function()
+              entry.pending = false
+              if result.code == 0 then
+                local warning, display = result.stdout:match('^([01])\n(.-)\n?$')
+                if warning then
+                  entry.warning = warning == "1"
+                  -- Strip the description prefix while preserving the change ID.
+                  display = display:gsub('^(%S+ )%S+: ', '%1')
+                  display = display:gsub('^(%S+ )(.*)$', function(prefix, description)
+                    if vim.fn.strchars(description) > 24 then
+                      description = vim.fn.strcharpart(description, 0, 23) .. '…'
+                    end
+                    return prefix .. description
+                  end)
+                  entry.text = vim.trim(display:gsub('[%c]', ' ')):gsub('%%', '%%%%')
+                else
+                  entry.text, entry.warning = "", false
+                end
+              else
+                entry.text, entry.warning = "", false
+              end
+              require('lualine').refresh { place = { 'statusline' } }
+            end)
+          end)
+          if not ok then
+            entry.text, entry.warning, entry.pending = "", false, false
+          end
+        end
+        return entry.text, entry.warning
+      end
+
       require('lualine').setup {
         options = {
           theme = bubbles_theme,
@@ -71,7 +127,18 @@
         },
         sections = {
           lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 }},
-          lualine_b = { 'filename', 'branch' },
+          lualine_b = {
+            'filename',
+            {
+              jj_status,
+              separator = { right = '' },
+              color = function()
+                local _, warning = jj_status()
+                return { fg = colors.black, bg = warning and colors.yellow or colors.green }
+              end,
+            },
+            { 'branch', cond = function() return jj_status() == "" end },
+          },
           lualine_c = {
             function()
               -- invoke `progress` here.
