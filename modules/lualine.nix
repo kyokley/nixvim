@@ -86,7 +86,7 @@
           local ok = pcall(vim.system, {
             'jj', '--no-pager', '--color', 'never', 'log',
             '-r', '@', '--no-graph', '-T',
-            'if(!empty && !description, "1", "0") ++ "\\n" ++ change_id.short(4) ++ " " ++ if(description, description.first_line(), "(no description)")',
+            'if(!empty && !description, "1", "0") ++ "\\n" ++ change_id.short(4) ++ if(description, " " ++ description.first_line(), "")',
           }, { cwd = root, text = true, timeout = 2000 }, function(result)
             vim.schedule(function()
               entry.pending = false
