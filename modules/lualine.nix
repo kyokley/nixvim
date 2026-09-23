@@ -96,6 +96,12 @@
                   entry.warning = warning == "1"
                   -- Strip the description prefix while preserving the change ID.
                   display = display:gsub('^(%S+ )%S+: ', '%1')
+                  display = display:gsub('^(%S+ )(.*)$', function(prefix, description)
+                    if vim.fn.strchars(description) > 24 then
+                      description = vim.fn.strcharpart(description, 0, 23) .. '…'
+                    end
+                    return prefix .. description
+                  end)
                   entry.text = vim.trim(display:gsub('[%c]', ' ')):gsub('%%', '%%%%')
                 else
                   entry.text, entry.warning = "", false
