@@ -86,12 +86,12 @@
           local ok = pcall(vim.system, {
             'jj', '--no-pager', '--color', 'never', 'log',
             '-r', '@', '--no-graph', '-T',
-            'if(!empty && !description, "1", "0") ++ "\\n" ++ change_id.short(4) ++ if(description, " " ++ description.first_line(), "")',
+            'if(!empty && !description, "1", "0") ++ if(empty, "1", "0") ++ if(conflict, "1", "0") ++ "\\n" ++ change_id.short(4) ++ if(description, " " ++ description.first_line(), "")',
           }, { cwd = root, text = true, timeout = 2000 }, function(result)
             vim.schedule(function()
               entry.pending = false
               if result.code == 0 then
-                local warning, display = result.stdout:match('^([01])\n(.-)\n?$')
+                local warning, empty, conflicted, display = result.stdout:match('^([01])([01])([01])\n(.-)\n?$')
                 if warning then
                   entry.warning = warning == "1"
                   -- Strip the description prefix while preserving the change ID.
@@ -102,7 +102,11 @@
                     end
                     return prefix .. description
                   end)
-                  entry.text = vim.trim(display:gsub('[%c]', ' ')):gsub('%%', '%%%%')
+                  display = vim.trim(display:gsub('[%c]', ' '))
+                  -- Keep state labels outside the description's length limit.
+                  if empty == "1" then display = display .. ' [empty]' end
+                  if conflicted == "1" then display = display .. ' [conflicted]' end
+                  entry.text = display:gsub('%%', '%%%%')
                 else
                   entry.text, entry.warning = "", false
                 end
