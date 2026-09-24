@@ -67,17 +67,17 @@
 
       local jj_cache = {}
       local function jj_status()
-        if vim.fn.executable('jj') ~= 1 then return "", false end
+        if vim.fn.executable('jj') ~= 1 then return "", false, false end
 
         local buf = vim.api.nvim_get_current_buf()
         local name = vim.api.nvim_buf_get_name(buf)
         local start = name ~= "" and vim.bo[buf].buftype == ""
           and vim.fs.abspath(name) or vim.fn.getcwd()
         local root = vim.fs.root(start, '.jj')
-        if not root then return "", false end
+        if not root then return "", false, false end
 
         local entry = jj_cache[root] or {
-          text = "", warning = false, pending = false, time = -math.huge,
+          text = "", warning = false, conflicted = false, pending = false, time = -math.huge,
         }
         jj_cache[root] = entry
         local now = vim.uv.now()
@@ -94,6 +94,7 @@
                 local warning, empty, conflicted, display = result.stdout:match('^([01])([01])([01])\n(.-)\n?$')
                 if warning then
                   entry.warning = warning == "1"
+                  entry.conflicted = conflicted == "1"
                   -- Strip the description prefix while preserving the change ID.
                   display = display:gsub('^(%S+ )%S+: ', '%1')
                   display = display:gsub('^(%S+ )(.*)$', function(prefix, description)
@@ -108,19 +109,19 @@
                   if conflicted == "1" then display = display .. ' [conflicted]' end
                   entry.text = display:gsub('%%', '%%%%')
                 else
-                  entry.text, entry.warning = "", false
+                  entry.text, entry.warning, entry.conflicted = "", false, false
                 end
               else
-                entry.text, entry.warning = "", false
+                entry.text, entry.warning, entry.conflicted = "", false, false
               end
               require('lualine').refresh { place = { 'statusline' } }
             end)
           end)
           if not ok then
-            entry.text, entry.warning, entry.pending = "", false, false
+            entry.text, entry.warning, entry.conflicted, entry.pending = "", false, false, false
           end
         end
-        return entry.text, entry.warning
+        return entry.text, entry.warning, entry.conflicted
       end
 
       require('lualine').setup {
@@ -137,8 +138,8 @@
               jj_status,
               separator = { right = '' },
               color = function()
-                local _, warning = jj_status()
-                return { fg = colors.black, bg = warning and colors.yellow or colors.green }
+                local _, warning, conflicted = jj_status()
+                return { fg = colors.black, bg = conflicted and colors.red or warning and colors.yellow or colors.green }
               end,
             },
             { 'branch', cond = function() return jj_status() == "" end },
