@@ -1,6 +1,15 @@
 {
   flake.nixvimModules = {
     full = {pkgs, ...}: {
+      keymaps = [
+        {
+          key = "<leader>lh";
+          mode = "n";
+          action.__raw = "vim.lsp.buf.hover";
+          options.desc = "LSP hover";
+        }
+      ];
+
       plugins = {
         lsp-format.enable = false;
         lsp-format-modifications.enable = true;
