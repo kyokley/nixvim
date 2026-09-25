@@ -248,19 +248,6 @@
         mode = ["n"];
       }
       {
-        key = "<leader>s";
-        action = ":s/\\<\\(desc\\|trigger\\|after\\|for\\|each\\|row\\|returns\\|replace\\|function\\|execute\\|procedure\\|with\\|case\\|when\\|then\\|else\\|end\\|type\\|using\\|foreign\\|references\\|cascade\\|if\\|check\\|coalesce\\|boolean\\|union\\|false\\|true\\|integer\\|text\\|serial\\|primary\\|key\\|into\\|insert\\|drop\\|limit\\|unique\\|index\\|default\\|column\\|add\\|table\\|create\\|alter\\|delete\\|interval\\|set\\|begin\\|order by\\|group by\\|commit\\|update\\|rollback\\|as\\|select\\|distinct\\|from\\|null\\|or\\|is\\|inner\\|right\\|outer\\|join\\|in\\|not\\|exists\\|on\\|where\\|and\\|constraint\\|having\\)\\>\\c/\\U&/g<CR>";
-        mode = ["n" "x"];
-        options = {silent = true;};
-      }
-      {
-        key = "<leader>sp";
-        action = ":%!docker run --rm -i kyokley/sqlparse --keywords upper --identifiers lower --reindent -<CR>";
-        mode = ["n" "x"];
-        options = {silent = true;};
-      }
-
-      {
         key = "ii";
         action = ":<c-u>call InIndentation()<cr>";
         mode = ["o" "x"];
