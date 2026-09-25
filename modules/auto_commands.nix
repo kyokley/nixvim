@@ -86,7 +86,7 @@
       {
         event = ["FileType"];
         pattern = ["gitcommit"];
-        command = "cnoreabbrev <expr> q getcmdtype() == ':' && getcmdline()[0] == 'q' ? 'cq' : 'q'";
+        command = "cnoreabbrev <buffer> <expr> q getcmdtype() == ':' && getcmdline() ==# 'q' ? 'cq' : 'q'";
       }
       {
         event = ["FileType"];
