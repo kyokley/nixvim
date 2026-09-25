@@ -1,31 +1,7 @@
 {
   flake.nixvimModules = {
     minimal = {lib, ...}: {
-      plugins = {
-        telescope = {
-          enable = lib.mkDefault false;
-          keymaps = {
-            # <leader>8 is mapped in key_maps.nix
-            # <leader>a is mapped in key_maps.nix
-            "<C-p>" = "git_files";
-          };
-        };
-      };
-
-      keymaps = [
-        {
-          key = "<leader>a";
-          action.__raw = ''
-            function()
-                local root = vim.fn.systemlist({"git", "-C", vim.fn.getcwd(), "rev-parse", "--show-toplevel"})[1]
-                if vim.v.shell_error ~= 0 or not root or root == "" then
-                  root = vim.fn.getcwd()
-                end
-                require('telescope.builtin').live_grep({cwd=root})
-            end
-          '';
-        }
-      ];
+      plugins.telescope.enable = lib.mkDefault false;
     };
 
     full = {
@@ -86,6 +62,7 @@
       plugins = {
         telescope = {
           enable = true;
+          keymaps."<C-p>" = "git_files";
           extensions = {
             live-grep-args = {
               enable = true;
