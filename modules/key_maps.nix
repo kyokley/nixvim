@@ -125,17 +125,106 @@
       }
       {
         key = "<leader>gb";
-        action = '':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | docker run --rm -i kyokley/color_blame color_git_blame | less +<C-R>=max([0, line('.') - winline()]) <CR><CR><CR>'';
+        action.__raw = ''
+          function()
+              local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p")
+              local line = vim.fn.line(".")
+              local less_line = math.max(0, line - vim.fn.winline())
+              if filename == "" then
+                  vim.notify("Cannot blame unnamed buffer", vim.log.levels.ERROR)
+                  return
+              end
+
+              local root = vim.fn.systemlist({"git", "-C", vim.fn.fnamemodify(filename, ":h"), "rev-parse", "--show-toplevel"})[1]
+              if vim.v.shell_error ~= 0 or not root or root == "" then
+                  vim.notify("Cannot find Git repository for " .. filename, vim.log.levels.ERROR)
+                  return
+              end
+
+              local command = "git -C " .. vim.fn.shellescape(root)
+                  .. " blame -- " .. vim.fn.shellescape(filename)
+                  .. " | docker run --rm -i kyokley/color_blame color_git_blame | less "
+                  .. vim.fn.shellescape("+" .. less_line)
+              vim.cmd.tabnew()
+              local job_id = vim.fn.termopen({vim.o.shell, vim.o.shellcmdflag, command})
+              if job_id <= 0 then
+                  vim.notify("Could not open terminal", vim.log.levels.ERROR)
+                  return
+              end
+          end
+        '';
         mode = ["n"];
       }
       {
         key = "<leader>gb";
-        action = '':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p | docker run --rm -i kyokley/color_blame color_git_blame | less <CR><CR>'';
+        action.__raw = ''
+          function()
+              local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p")
+              local first = vim.fn.line("'<")
+              local last = vim.fn.line("'>")
+              if first > last then
+                  first, last = last, first
+              end
+              if filename == "" then
+                  vim.notify("Cannot blame unnamed buffer", vim.log.levels.ERROR)
+                  return
+              end
+
+              local root = vim.fn.systemlist({"git", "-C", vim.fn.fnamemodify(filename, ":h"), "rev-parse", "--show-toplevel"})[1]
+              if vim.v.shell_error ~= 0 or not root or root == "" then
+                  vim.notify("Cannot find Git repository for " .. filename, vim.log.levels.ERROR)
+                  return
+              end
+
+              local command = "git -C " .. vim.fn.shellescape(root)
+                  .. " blame -L " .. vim.fn.shellescape(string.format("%d,%d", first, last))
+                  .. " -- " .. vim.fn.shellescape(filename)
+                  .. " | docker run --rm -i kyokley/color_blame color_git_blame | less"
+              vim.cmd.tabnew()
+              local job_id = vim.fn.termopen({vim.o.shell, vim.o.shellcmdflag, command})
+              if job_id <= 0 then
+                  vim.notify("Could not open terminal", vim.log.levels.ERROR)
+                  return
+              end
+          end
+        '';
         mode = ["v"];
       }
       {
         key = "<leader>gl";
-        action = '':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | sed -n <C-R>=line(".") <CR>p | awk '{print $1}' | tr -d '^' | xargs git show <CR><CR>'';
+        action.__raw = ''
+          function()
+              local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p")
+              local line = vim.fn.line(".")
+              if filename == "" then
+                  vim.notify("Cannot show commit for unnamed buffer", vim.log.levels.ERROR)
+                  return
+              end
+
+              local root = vim.fn.systemlist({"git", "-C", vim.fn.fnamemodify(filename, ":h"), "rev-parse", "--show-toplevel"})[1]
+              if vim.v.shell_error ~= 0 or not root or root == "" then
+                  vim.notify("Cannot find Git repository for " .. filename, vim.log.levels.ERROR)
+                  return
+              end
+
+              local porcelain = vim.fn.systemlist({"git", "-C", root, "blame", "--porcelain", "-L", string.format("%d,%d", line, line), "--", filename})
+              if vim.v.shell_error ~= 0 then
+                  vim.notify("git blame failed", vim.log.levels.ERROR)
+                  return
+              end
+              local hash = porcelain[1] and porcelain[1]:match("%^?([0-9a-fA-F]+)%s")
+              if not hash or (#hash ~= 40 and #hash ~= 64) then
+                  vim.notify("Could not determine commit for current line", vim.log.levels.ERROR)
+                  return
+              end
+
+              vim.cmd.tabnew()
+              local job_id = vim.fn.termopen({"git", "-C", root, "show", hash})
+              if job_id <= 0 then
+                  vim.notify("Could not open terminal", vim.log.levels.ERROR)
+              end
+          end
+        '';
         mode = ["n"];
       }
       {

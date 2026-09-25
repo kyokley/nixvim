@@ -36,9 +36,9 @@
           local multi = picker:get_multi_selection()
           if not vim.tbl_isempty(multi) then
             require('telescope.actions').close(prompt_bufnr)
-            for _, j in pairs(multi) do
+            for _, j in ipairs(multi) do
               if j.path ~= nil then
-                vim.cmd(string.format('%s %s', 'edit', j.path))
+                vim.cmd.edit({args = {j.path}})
               end
             end
           else
