@@ -17,7 +17,14 @@
             nginx_language_server.enable = false;
             lua_ls.enable = true;
             ruff.enable = true;
-            pylsp.enable = true;
+            pylsp = {
+              enable = true;
+              settings.pylsp.plugins = {
+                pyflakes.enabled = false;
+                pycodestyle.enabled = false;
+                mccabe.enabled = false;
+              };
+            };
             statix = {
               enable = true;
               autostart = true;

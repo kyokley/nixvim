@@ -66,14 +66,12 @@
           enable = true;
           autoCmd = {
             event = [
-              "TextChanged"
+              "BufWritePost"
               "BufWinEnter"
-              "InsertLeave"
             ];
             group = "lint_setup";
           };
           linters = {
-            ruff.cmd = lib.getExe pkgs.ruff;
             bandit = {
               cmd = lib.getExe' pkgs.bandit "bandit";
               args = [
@@ -88,12 +86,9 @@
             hadolint.cmd = lib.getExe pkgs.hadolint;
             jsonlint.cmd = lib.getExe' pkgs.python313Packages.demjson3 "jsonlint";
             tflint.cmd = lib.getExe pkgs.tflint;
-            statix.cmd = lib.getExe pkgs.statix;
           };
           lintersByFt = {
-            nix = ["statix"];
             python = [
-              "ruff"
               "bandit"
             ];
             dockerfile = [
