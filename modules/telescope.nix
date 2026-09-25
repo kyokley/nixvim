@@ -60,6 +60,7 @@
                 telescope.grep_string({theme = 'dropdown', cwd=cwd})
             end
           '';
+          options.desc = "Find current word";
         }
         {
           key = "<leader>a";
@@ -70,6 +71,7 @@
                 telescope.extensions.live_grep_args.live_grep_args({theme = 'dropdown', cwd=cwd})
             end
           '';
+          options.desc = "Live grep";
         }
         {
           key = "<C-p>";
@@ -84,6 +86,22 @@
                 end
             end
           '';
+          options.desc = "Find files";
+        }
+        {
+          key = "<leader>ff";
+          action.__raw = ''
+            function()
+              local telescope = require('telescope.builtin')
+              local cwd, is_git_repo = require('nixvim.root').current_buffer_root()
+              if is_git_repo then
+                telescope.git_files({cwd = cwd})
+              else
+                telescope.find_files({cwd = cwd})
+              end
+            end
+          '';
+          options.desc = "Find files";
         }
       ];
 

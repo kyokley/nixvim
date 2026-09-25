@@ -21,6 +21,7 @@
         key = "<F4>";
         action = ":Vista!!<CR>";
         mode = ["n"];
+        options.desc = "Toggle Vista outline";
       }
     ];
 
@@ -28,7 +29,7 @@
       {
         event = ["FileType"];
         pattern = ["vista" "vista_kind"];
-        command = "nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>";
+        command = "lua vim.keymap.set('n', '/', function() vim.fn['vista#finder#fzf#Run']() end, {buffer = true, silent = true, desc = 'Find Vista symbol'})";
       }
     ];
   };

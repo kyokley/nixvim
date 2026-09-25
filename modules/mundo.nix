@@ -16,6 +16,7 @@
         key = "<F5>";
         action = ":MundoToggle<CR>";
         mode = ["n"];
+        options.desc = "Toggle undo tree";
       }
     ];
   };

@@ -29,6 +29,15 @@
             current_line_blame = true;
             linehl = false;
             numhl = false;
+            on_attach.__raw = ''
+              function(bufnr)
+                local gitsigns = require('gitsigns')
+                vim.keymap.set('n', '<leader>gp', gitsigns.preview_hunk, {buffer = bufnr, desc = 'Preview Git hunk'})
+                vim.keymap.set('n', '<leader>gs', gitsigns.stage_hunk, {buffer = bufnr, desc = 'Stage Git hunk'})
+                vim.keymap.set('n', '<leader>gr', gitsigns.reset_hunk, {buffer = bufnr, desc = 'Reset Git hunk'})
+                vim.keymap.set('n', '<leader>gd', gitsigns.diffthis, {buffer = bufnr, desc = 'Diff current buffer'})
+              end
+            '';
             signs = {
               add.text = "+";
               change.text = "~";

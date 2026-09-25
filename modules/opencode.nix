@@ -74,7 +74,10 @@
           end
         '';
         mode = ["t"];
-        options.nowait = true;
+        options = {
+          nowait = true;
+          desc = "Exit OpenCode terminal";
+        };
       }
       {
         key = "kk";
@@ -99,6 +102,7 @@
           end
         '';
         mode = ["t"];
+        options.desc = "Exit OpenCode terminal";
       }
     ];
   };

@@ -8,6 +8,19 @@
       formatexpr = "v:lua.require'conform'.formatexpr()";
     };
 
+    keymaps = [
+      {
+        key = "<leader>cf";
+        action.__raw = ''
+          function()
+            require('conform').format({async = false, timeout_ms = 1000, lsp_format = 'fallback'})
+          end
+        '';
+        mode = "n";
+        options.desc = "Format buffer";
+      }
+    ];
+
     plugins = {
       conform-nvim = {
         enable = true;

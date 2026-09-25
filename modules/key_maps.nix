@@ -2,126 +2,167 @@
   flake.nixvimModules.minimal = {
     keymaps = [
       {
-        key = "<leader>c";
+        key = "<leader>tc";
         action = ":set cursorline!<CR>";
-        options = {silent = true;};
+        options = {
+          silent = true;
+          desc = "Toggle cursor line";
+        };
       }
       {
         key = "<up>";
         action = "<nop>";
         mode = ["n" "i"];
+        options.desc = "Disable Up arrow";
       }
       {
         key = "<down>";
         action = "<nop>";
         mode = ["n" "i"];
+        options.desc = "Disable Down arrow";
       }
       {
         key = "<left>";
         action = "<nop>";
         mode = ["n" "i"];
+        options.desc = "Disable Left arrow";
       }
       {
         key = "<right>";
         action = "<nop>";
         mode = ["n" "i"];
+        options.desc = "Disable Right arrow";
       }
       {
         key = "jj";
         action = "<Esc>";
         mode = ["i"];
+        options.desc = "Exit insert mode";
       }
       {
         key = "kk";
         action = "<Esc>";
         mode = ["i"];
+        options.desc = "Exit insert mode";
       }
       {
         key = "JJ";
         action = "<Esc>";
         mode = ["i"];
+        options.desc = "Exit insert mode";
       }
       {
         key = "KK";
         action = "<Esc>";
         mode = ["i"];
+        options.desc = "Exit insert mode";
       }
       {
         key = "M";
         action = ":join<CR>";
         mode = ["n" "x"];
+        options.desc = "Join lines";
       }
       {
         key = "gM";
         action = ":join!<CR>";
         mode = ["n" "x"];
+        options.desc = "Join lines without space";
       }
       {
         key = "<S-j>";
         action = ''@="20j"<CR>'';
         mode = ["n" "x"];
-        options = {silent = true;};
+        options = {
+          silent = true;
+          desc = "Move down 20 lines";
+        };
       }
       {
         key = "<S-k>";
         action = ''@="20k"<CR>'';
         mode = ["n" "x"];
-        options = {silent = true;};
+        options = {
+          silent = true;
+          desc = "Move up 20 lines";
+        };
       }
       {
         key = "<S-l>";
         action = "5l";
         mode = ["x"];
-        options = {silent = true;};
+        options = {
+          silent = true;
+          desc = "Move right 5 columns";
+        };
       }
       {
         key = "<S-h>";
         action = "5h";
         mode = ["x"];
-        options = {silent = true;};
+        options = {
+          silent = true;
+          desc = "Move left 5 columns";
+        };
       }
       {
         key = "<S-y>";
         action = "y$";
         mode = ["n"];
-        options = {silent = true;};
+        options = {
+          silent = true;
+          desc = "Yank to line end";
+        };
       }
       {
         key = "<S-h>";
         action = ":bprev<CR>";
         mode = ["n"];
-        options = {silent = true;};
+        options = {
+          silent = true;
+          desc = "Previous buffer";
+        };
       }
       {
         key = "<S-l>";
         action = ":bnext<CR>";
         mode = ["n"];
-        options = {silent = true;};
+        options = {
+          silent = true;
+          desc = "Next buffer";
+        };
       }
       {
         key = "<leader>h";
         action = ":nohlsearch<CR>";
-        options = {silent = true;};
+        options = {
+          silent = true;
+          desc = "Clear search highlight";
+        };
       }
       {
         key = "<C-j>";
         action = "<C-w>j";
         mode = ["n"];
+        options.desc = "Focus window below";
       }
       {
         key = "<C-k>";
         action = "<C-w>k";
         mode = ["n"];
+        options.desc = "Focus window above";
       }
       {
         key = "<C-l>";
         action = "<C-w>l";
         mode = ["n"];
+        options.desc = "Focus window right";
       }
       {
         key = "<C-h>";
         action = "<C-w>h";
         mode = ["n"];
+        options.desc = "Focus window left";
       }
       {
         key = "<leader>gb";
@@ -154,6 +195,7 @@
           end
         '';
         mode = ["n"];
+        options.desc = "Blame file";
       }
       {
         key = "<leader>gb";
@@ -189,6 +231,7 @@
           end
         '';
         mode = ["v"];
+        options.desc = "Blame selection";
       }
       {
         key = "<leader>gl";
@@ -226,51 +269,61 @@
           end
         '';
         mode = ["n"];
+        options.desc = "Show line commit";
       }
       {
         key = "<F3>";
         action = ":NvimTreeToggle<CR>";
         mode = ["n"];
+        options.desc = "Toggle file tree";
       }
       {
         key = "<F12>";
         action = ":py3 SetBreakpoint()<CR>";
         mode = ["n"];
+        options.desc = "Set Python breakpoint";
       }
       {
         key = "<S-F12>";
         action = ":py3 RemoveBreakpoints()<CR>";
         mode = ["n"];
+        options.desc = "Remove Python breakpoints";
       }
       {
         key = "<F24>";
         action = ":py3 RemoveBreakpoints()<CR>";
         mode = ["n"];
+        options.desc = "Remove Python breakpoints";
       }
       {
         key = "ii";
         action = ":<c-u>call InIndentation()<cr>";
         mode = ["o" "x"];
+        options.desc = "Inner indentation";
       }
       {
         key = "ai";
         action = ":<c-u>call AroundIndentation()<cr>";
         mode = ["o" "x"];
+        options.desc = "Around indentation";
       }
       {
         key = ",#";
         action = ":call CommentLineToEnd('# ')<CR>+";
         mode = ["n" "x"];
+        options.desc = "Comment with hash";
       }
       {
         key = ",*";
         action = ":call CommentLinePincer('/* ', ' */')<CR>+";
         mode = ["n" "x"];
+        options.desc = "Comment with block comment";
       }
       {
         key = ",-";
         action = ":call CommentLinePincer('<!-- ', ' -->')<CR>+";
         mode = ["n" "x"];
+        options.desc = "Comment with HTML comment";
       }
       {
         key = "<leader>to";
@@ -279,6 +332,7 @@
               vim.opt.scrolloff = 999 - vim.o.scrolloff
           end
         '';
+        options.desc = "Toggle scroll offset";
       }
     ];
   };
