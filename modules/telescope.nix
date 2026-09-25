@@ -5,6 +5,22 @@
     };
 
     full = {
+      extraFiles."lua/nixvim/root.lua".text = ''
+        local M = {}
+
+        function M.current_buffer_root()
+          local filename = vim.api.nvim_buf_get_name(0)
+          if filename == "" then
+            return vim.fn.getcwd(), false
+          end
+
+          local git_root = vim.fs.root(filename, ".git")
+          return git_root or vim.fn.fnamemodify(filename, ":h"), git_root ~= nil
+        end
+
+        return M
+      '';
+
       extraConfigLua = ''
         -- {{{ Telescope Config
         local select_one_or_multi = function(prompt_bufnr)
@@ -40,7 +56,8 @@
           action.__raw = ''
             function()
                 local telescope = require('telescope.builtin')
-                telescope.grep_string({theme = 'dropdown', cwd=vim.fn['FindRootDirectory']() ~= "" and vim.fn['FindRootDirectory']() or vim.fn.getcwd()})
+                local cwd = require('nixvim.root').current_buffer_root()
+                telescope.grep_string({theme = 'dropdown', cwd=cwd})
             end
           '';
         }
@@ -49,11 +66,22 @@
           action.__raw = ''
             function()
                 local telescope = require('telescope')
-                local root = vim.fn.systemlist({"git", "-C", vim.fn.getcwd(), "rev-parse", "--show-toplevel"})[1]
-                if vim.v.shell_error ~= 0 or not root or root == "" then
-                  root = vim.fn.getcwd()
+                local cwd = require('nixvim.root').current_buffer_root()
+                telescope.extensions.live_grep_args.live_grep_args({theme = 'dropdown', cwd=cwd})
+            end
+          '';
+        }
+        {
+          key = "<C-p>";
+          action.__raw = ''
+            function()
+                local telescope = require('telescope.builtin')
+                local cwd, is_git_repo = require('nixvim.root').current_buffer_root()
+                if is_git_repo then
+                  telescope.git_files({cwd = cwd})
+                else
+                  telescope.find_files({cwd = cwd})
                 end
-                telescope.extensions.live_grep_args.live_grep_args({theme = 'dropdown', cwd=root})
             end
           '';
         }
@@ -62,7 +90,6 @@
       plugins = {
         telescope = {
           enable = true;
-          keymaps."<C-p>" = "git_files";
           extensions = {
             live-grep-args = {
               enable = true;

@@ -15,7 +15,7 @@
         "showmatch" = true;
         "scrolloff" = 5;
         "visualbell" = true;
-        "autochdir" = true;
+        "autochdir" = false;
         # "wildignore" = {'*.swp', '*.bak', '*.pyc', '*.class', '*.o', '*.obj', '*.git'};
         # "wildmode" = "{'longest:full', 'full'}";
         "wildmenu" = true;
