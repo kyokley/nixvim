@@ -30,11 +30,8 @@
         call s:FindError(s:file_name, '\s\+$', 'Found trailing whitespace in')
 
         let l:errors = []
-        let l:loc_list = getloclist(0)
-        for l:error in l:loc_list
-          if l:error.type != 'E'
-            continue
-          endif
+        let l:diagnostics = luaeval('vim.diagnostic.get(_A, { severity = vim.diagnostic.severity.ERROR })', bufnr('%'))
+        for l:error in l:diagnostics
 
           if &filetype == 'python'
             let error_strs = ['undefined name',
@@ -66,13 +63,12 @@
                               \ 'simple statements must be separated',
                               \ 'unexpected EOF']
             for error_str in error_strs
-              call system('rg -i "' . error_str . '"', l:error.text)
-              if v:shell_error == 0
-                throw l:error.text . ' | ' . s:file_name . ':' . l:error.lnum
+              if stridx(tolower(l:error.message), tolower(error_str)) != -1
+                throw l:error.message . ' | ' . s:file_name . ':' . (l:error.lnum + 1)
               endif
             endfor
           else
-            let l:errors += [l:error.text]
+            let l:errors += [l:error.message]
           endif
         endfor
         if !empty(l:errors)
