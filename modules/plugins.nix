@@ -2,6 +2,25 @@
   flake.nixvimModules = {
     minimal = {lib, ...}: {
       plugins = {
+        tiny-inline-diagnostic = {
+          enable = true;
+          settings = {
+            options = {
+              multilines = {
+                enabled = true;
+                always_show = true;
+              };
+              show_source = {
+                enable = true;
+                if_many = true;
+              };
+            };
+            preset = "ghost";
+            virt_texts = {
+              priority = 2048;
+            };
+          };
+        };
         web-devicons.enable = true;
         vim-bbye.enable = true;
         marks.enable = true;
