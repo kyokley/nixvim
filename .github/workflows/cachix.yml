@@ -1,0 +1,19 @@
+name: Build and Cache Nixvim
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - uses: cachix/cachix-action@v17
+        with:
+          name: horus
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: Build default Nixvim
+        run: nix build --no-update-lock-file .#default
