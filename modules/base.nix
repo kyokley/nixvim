@@ -13,6 +13,19 @@
         jq
       ];
 
+      extraPlugins = [
+        (pkgs.vimUtils.buildVimPlugin {
+          pname = "jj-diffconflicts";
+          version = "a2aa9a2";
+          src = pkgs.fetchFromGitHub {
+            owner = "rafikdraoui";
+            repo = "jj-diffconflicts";
+            rev = "a2aa9a247b56d2c1a6f6be81bcf41c5450cc82ff";
+            hash = "sha256-MjacjGlBRwActBBGeBZDHz8jz5J3Mt6KoDsf8WKgUDA=";
+          };
+        })
+      ];
+
       diagnostic.settings = {
         signs = {
           text.__raw = ''
