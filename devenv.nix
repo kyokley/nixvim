@@ -1,10 +1,11 @@
 {
   pkgs,
-  lib,
-  config,
-  inputs,
   ...
 }: {
+  cachix = {
+    pull = ["horus"];
+  };
+
   # https://devenv.sh/basics/
   env.GREET = "Nixvim";
 
