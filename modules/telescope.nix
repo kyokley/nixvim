@@ -19,6 +19,25 @@
         return M
       '';
 
+      autoCmd = [
+        {
+          event = ["BufEnter"];
+          pattern = "*";
+          desc = "Set working directory to the current buffer directory";
+          callback.__raw = ''
+            function()
+              if vim.bo.buftype ~= "" then
+                return
+              end
+              local filename = vim.api.nvim_buf_get_name(0)
+              if filename ~= "" then
+                vim.api.nvim_set_current_dir(vim.fn.fnamemodify(filename, ":h"))
+              end
+            end
+          '';
+        }
+      ];
+
       extraConfigLua = ''
         -- {{{ Telescope Config
         local select_one_or_multi = function(prompt_bufnr)
