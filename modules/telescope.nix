@@ -10,12 +10,10 @@
 
         function M.current_buffer_root()
           local filename = vim.api.nvim_buf_get_name(0)
-          if filename == "" then
-            return vim.fn.getcwd(), false
-          end
-
-          local git_root = vim.fs.root(filename, ".git")
-          return git_root or vim.fn.fnamemodify(filename, ":h"), git_root ~= nil
+          local path = filename ~= "" and filename or vim.fn.getcwd()
+          local git_root = vim.fs.root(path, ".git")
+          local fallback = filename ~= "" and vim.fn.fnamemodify(filename, ":h") or path
+          return git_root or fallback, git_root ~= nil
         end
 
         return M
